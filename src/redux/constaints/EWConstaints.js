@@ -1,0 +1,19 @@
+export const ALL_EW_REQUEST = 'ALL_EW_REQUEST';
+export const ALL_EW_SUCCESS = 'ALL_EW_SUCCESS';
+export const ALL_EW_FAIL = 'ALL_EW_FAIL';
+
+export const ADD_EW_REQUEST = 'ADD_EW_REQUEST';
+export const ADD_EW_SUCCESS = 'ADD_EW_SUCCESS';
+export const ADD_EW_FAIL = 'ADD_EW_FAIL';
+
+export const DELETE_EW_REQUEST = 'DELETE_EW_REQUEST';
+export const DELETE_EW_SUCCESS = 'DELETE_EW_SUCCESS';
+export const DELETE_EW_FAIL = 'DELETE_EW_FAIL';
+
+export const UPDATE_EW_REQUEST = 'UPDATE_EW_REQUEST';
+export const UPDATE_EW_SUCCESS = 'UPDATE_EW_SUCCESS';
+export const UPDATE_EW_FAIL = 'UPDATE_EW_FAIL';
+
+export const SEARCH_EW_REQUEST = 'SEARCH_EW_REQUEST';
+export const SEARCH_EW_SUCCESS = 'SEARCH_EW_SUCCESS';
+export const SEARCH_EW_FAIL = 'SEARCH_EW_FAIL';

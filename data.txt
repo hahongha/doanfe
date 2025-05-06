@@ -1,0 +1,128 @@
+INSERT INTO rental.room_type (id, create_at, update_at, description, image_list, name, `size`) VALUES
+-- Phòng giá rẻ
+(1, NOW(), NOW(), 'Phòng trọ giá rẻ, nhỏ gọn, tiện lợi cho sinh viên', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng mini 10m²', 10),
+(2, NOW(), NOW(), 'Phòng tiết kiệm diện tích, có cửa sổ, không gian yên tĩnh', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng tiết kiệm', 11),
+(3, NOW(), NOW(), 'Phòng cơ bản, có toilet chung, phù hợp người độc thân', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng đơn sinh viên', 12),
+
+-- Phòng tầm trung
+(4, NOW(), NOW(), 'Phòng tầm trung, có toilet riêng, nội thất cơ bản', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng tiêu chuẩn', 15),
+(5, NOW(), NOW(), 'Phòng có máy lạnh, wifi miễn phí, khu dân cư an ninh', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng tiện nghi', 16),
+(6, NOW(), NOW(), 'Phòng rộng, có ban công, gần trung tâm', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng có ban công', 18),
+
+-- Phòng cao cấp
+(7, NOW(), NOW(), 'Phòng cao cấp, nội thất đầy đủ, máy giặt riêng', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng VIP', 25),
+(8, NOW(), NOW(), 'Phòng sang trọng, có bếp riêng, máy lạnh 2 chiều', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng Studio', 28),
+(9, NOW(), NOW(), 'Phòng penthouse, sân thượng riêng, view đẹp', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phòng Penthouse', 35);
+
+-- Phòng giá rẻ (room_type_id: 1, 2, 3)
+INSERT INTO rental.room (create_at, update_at, cost, description, electric_index, funiture, images, is_active, `number`, room_number, status, water_index, renter_id, room_type_id) VALUES
+(NOW(), NOW(), 1200000, 'Phòng mini, tiết kiệm chi phí', 0, 'Giường, quạt, bàn học', '', 1, 101, 'R101', 'EMPTY', 0, NULL, 1),
+(NOW(), NOW(), 1300000, 'Phòng tiện nghi cơ bản', 0, 'Giường, tủ, đèn học', '', 1, 102, 'R102', 'EMPTY', 0, NULL, 1),
+(NOW(), NOW(), 1250000, 'Phòng cho sinh viên ở ghép', 0, 'Giường tầng, bàn học', '', 1, 103, 'R103', 'EMPTY', 0, NULL, 1),
+
+(NOW(), NOW(), 1400000, 'Phòng tiết kiệm, toilet ngoài', 0, 'Giường, kệ sách', '', 1, 104, 'R104', 'EMPTY', 0, NULL, 2),
+(NOW(), NOW(), 1350000, 'Phòng đơn tiện lợi', 0, 'Giường, bàn, kệ nhỏ', '', 1, 105, 'R105', 'EMPTY', 0, NULL, 2),
+(NOW(), NOW(), 1450000, 'Phòng nhỏ, có cửa sổ', 0, 'Giường, ghế nhựa', '', 1, 106, 'R106', 'EMPTY', 0, NULL, 2),
+
+(NOW(), NOW(), 1500000, 'Phòng cơ bản, khu an ninh', 0, 'Giường, quạt máy', '', 1, 107, 'R107', 'EMPTY', 0, NULL, 3),
+(NOW(), NOW(), 1550000, 'Phòng giá rẻ, gần chợ', 0, 'Giường, bàn ghế', '', 1, 108, 'R108', 'EMPTY', 0, NULL, 3),
+(NOW(), NOW(), 1600000, 'Phòng sinh viên, nội thất tối giản', 0, 'Giường, kệ sách nhỏ', '', 1, 109, 'R109', 'EMPTY', 0, NULL, 3),
+
+-- Phòng tầm trung (room_type_id: 4, 5, 6)
+(NOW(), NOW(), 2000000, 'Phòng tiêu chuẩn, đầy đủ tiện nghi', 0, 'Giường, máy lạnh, bàn làm việc', '', 1, 201, 'R201', 'EMPTY', 0, NULL, 4),
+(NOW(), NOW(), 2100000, 'Phòng đẹp, có cửa sổ lớn', 0, 'Tủ quần áo, bàn ăn', '', 1, 202, 'R202', 'EMPTY', 0, NULL, 4),
+(NOW(), NOW(), 1950000, 'Phòng trung cấp, vệ sinh riêng', 0, 'Giường, tủ, bàn ghế', '', 1, 203, 'R203', 'EMPTY', 0, NULL, 4),
+
+(NOW(), NOW(), 2200000, 'Phòng có máy lạnh, wifi', 0, 'Giường, máy lạnh, kệ sách', '', 1, 204, 'R204', 'EMPTY', 0, NULL, 5),
+(NOW(), NOW(), 2300000, 'Phòng có ban công, thoáng mát', 0, 'Giường, bàn, máy lạnh', '', 1, 205, 'R205', 'EMPTY', 0, NULL, 5),
+(NOW(), NOW(), 2250000, 'Phòng mới xây, tiện nghi đầy đủ', 0, 'Giường, máy lạnh, bàn làm việc', '', 1, 206, 'R206', 'EMPTY', 0, NULL, 5),
+
+(NOW(), NOW(), 2400000, 'Phòng trung bình, nội thất cơ bản', 0, 'Giường, bàn ăn', '', 1, 207, 'R207', 'EMPTY', 0, NULL, 6),
+(NOW(), NOW(), 2450000, 'Phòng có máy giặt chung', 0, 'Tủ, giường, bàn ghế', '', 1, 208, 'R208', 'EMPTY', 0, NULL, 6),
+(NOW(), NOW(), 2500000, 'Phòng ở thoải mái cho 2 người', 0, 'Giường đôi, bàn ăn', '', 1, 209, 'R209', 'EMPTY', 0, NULL, 6),
+
+-- Phòng cao cấp (room_type_id: 7, 8, 9)
+(NOW(), NOW(), 3500000, 'Phòng VIP, đầy đủ nội thất cao cấp', 0, 'Giường cao cấp, TV, tủ lạnh', '', 1, 301, 'R301', 'EMPTY', 0, NULL, 7),
+(NOW(), NOW(), 3600000, 'Phòng cao cấp, sang trọng', 0, 'Nội thất nhập khẩu, điều hòa', '', 1, 302, 'R302', 'EMPTY', 0, NULL, 7),
+(NOW(), NOW(), 3700000, 'Phòng view đẹp, nội thất gỗ cao cấp', 0, 'Giường gỗ, TV, bàn ăn', '', 1, 303, 'R303', 'EMPTY', 0, NULL, 7),
+
+(NOW(), NOW(), 4000000, 'Studio đẹp, có bếp riêng', 0, 'Bếp, sofa, giường, bàn ăn', '', 1, 304, 'R304', 'EMPTY', 0, NULL, 8),
+(NOW(), NOW(), 4100000, 'Studio full nội thất, hiện đại', 0, 'TV, sofa, bàn làm việc', '', 1, 305, 'R305', 'EMPTY', 0, NULL, 8),
+(NOW(), NOW(), 4200000, 'Studio cao cấp, ban công riêng', 0, 'Máy giặt, bếp riêng', '', 1, 306, 'R306', 'EMPTY', 0, NULL, 8),
+
+(NOW(), NOW(), 5000000, 'Penthouse sang trọng, sân thượng', 0, 'Sofa cao cấp, giường lớn', '', 1, 307, 'R307', 'EMPTY', 0, NULL, 9),
+(NOW(), NOW(), 5200000, 'Phòng Penthouse đẳng cấp, view thành phố', 0, 'Giường king, bồn tắm', '', 1, 308, 'R308', 'EMPTY', 0, NULL, 9),
+(NOW(), NOW(), 5400000, 'Penthouse rộng, ánh sáng tự nhiên', 0, 'TV lớn, ghế massage', '', 1, 309, 'R309', 'EMPTY', 0, NULL, 9);
+-- STAFF
+INSERT INTO rental.users (user_id, create_at, update_at, email, password_hash, status, user_avatar, user_name, user_type, role_id)
+VALUES
+('user011', NOW(), NOW(), 'staff1@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff1', 'STAFF', 3),
+('user012', NOW(), NOW(), 'staff2@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff2', 'STAFF', 3),
+('user013', NOW(), NOW(), 'staff3@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff3', 'STAFF', 3),
+('user014', NOW(), NOW(), 'staff4@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff4', 'STAFF', 3),
+('user015', NOW(), NOW(), 'staff5@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff5', 'STAFF', 3),
+('user016', NOW(), NOW(), 'staff6@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff6', 'STAFF', 3),
+('user017', NOW(), NOW(), 'staff7@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff7', 'STAFF', 3),
+('user018', NOW(), NOW(), 'staff8@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff8', 'STAFF', 3),
+('user019', NOW(), NOW(), 'staff9@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff9', 'STAFF', 3),
+('user020', NOW(), NOW(), 'staff10@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'staff10', 'STAFF', 3);
+
+-- USER
+INSERT INTO rental.users (user_id, create_at, update_at, email, password_hash, status, user_avatar, user_name, user_type, role_id)
+VALUES
+('user021', NOW(), NOW(), 'user1@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user1', 'USER', 4),
+('user022', NOW(), NOW(), 'user2@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user2', 'USER', 4),
+('user023', NOW(), NOW(), 'user3@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user3', 'USER', 4),
+('user024', NOW(), NOW(), 'user4@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user4', 'USER', 4),
+('user025', NOW(), NOW(), 'user5@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user5', 'USER', 4),
+('user026', NOW(), NOW(), 'user6@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user6', 'USER', 4),
+('user027', NOW(), NOW(), 'user7@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user7', 'USER', 4),
+('user028', NOW(), NOW(), 'user8@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user8', 'USER', 4),
+('user029', NOW(), NOW(), 'user9@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user9', 'USER', 4),
+('user030', NOW(), NOW(), 'user10@example.com', 'password_hash', 'ACTIVE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'user10', 'USER', 4);
+
+INSERT INTO rental.renter (id, create_at, update_at, address, dob, family_phone, full_name, gender, identification, image_url, is_register, phone, place_of_origin, room, user_id)
+VALUES
+('renter1',
+ NOW(), NOW(), '123 Main St, District 1, Ho Chi Minh City', '1990-01-01', '0123456789', 'Nguyen Thi A', 'Female', 'ID001', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 1, '0987654321', 'Hanoi', FLOOR(1 + (RAND() * 27)), 'user021'),
+
+('renter2',
+ NOW(), NOW(), '456 Another St, District 2, Ho Chi Minh City', '1992-02-02', '0987654321', 'Nguyen Thi B', 'Female', 'ID002', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 1, '0912345678', 'Da Nang', FLOOR(1 + (RAND() * 27)), 'user022'),
+
+('renter3',
+ NOW(), NOW(), '789 Third St, District 3, Ho Chi Minh City', '1993-03-03', '0912345678', 'Nguyen Thi C', 'Female', 'ID003', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 1, '0923456789', 'Can Tho', FLOOR(1 + (RAND() * 27)), 'user023'),
+
+('renter4',
+ NOW(), NOW(), '101 Fourth St, District 4, Ho Chi Minh City', '1995-04-04', '0923456789', 'Nguyen Thi D', 'Female', 'ID004', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 1, '0934567890', 'Hai Phong', FLOOR(1 + (RAND() * 27)), 'user024'),
+
+('renter5',
+ NOW(), NOW(), '202 Fifth St, District 5, Ho Chi Minh City', '1997-05-05', '0934567890', 'Nguyen Thi E', 'Female', 'ID005', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 1, '0945678901', 'Quang Ninh', FLOOR(1 + (RAND() * 27)), 'user025');
+INSERT INTO rental.contract_member
+(family_phone, identification, image_url, is_register, rental_relationship, status, contract_id)
+VALUES
+('0912345678', 'ID001', 'https://example.com/img1.jpg', 0, 'Vợ', 'Chưa duyệt', 'ct_001'),
+('0987654321', 'ID002', 'https://example.com/img2.jpg', 0, 'Chồng', 'Chưa duyệt', 'ct_001'),
+('0934567890', 'ID003', 'https://example.com/img3.jpg', 0, 'Con', 'Chưa duyệt', 'ct_001'),
+
+('0923456789', 'ID004', 'https://example.com/img4.jpg', 0, 'Bạn bè', 'Đã duyệt', 'ct_002'),
+('0967890123', 'ID005', 'https://example.com/img5.jpg', 0, 'Anh em', 'Đã duyệt', 'ct_002'),
+('0978901234', 'ID006', 'https://example.com/img6.jpg', 0, 'Bố mẹ', 'Đã duyệt', 'ct_002'),
+
+('0956789012', 'ID007', 'https://example.com/img7.jpg', 0, 'Khác', 'Chờ xử lý', 'ct_003'),
+('0945678901', 'ID008', 'https://example.com/img8.jpg', 0, 'Bạn cùng phòng', 'Chờ xử lý', 'ct_003'),
+('0934567800', 'ID009', 'https://example.com/img9.jpg', 0, 'Người quen', 'Chờ xử lý', 'ct_003');
+
+
+INSERT INTO rental.staff 
+(id, dob, end_date, full_name, gender, image_url, note, phone, `position`, start_date, user_id)
+VALUES
+('staff11', '1990-01-01', NULL, 'Nguyễn Văn A', 'MALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Nhân viên chính thức', '0900111111', 'Manager', '2023-01-01', 'user011'),
+('staff12', '1991-02-02', NULL, 'Trần Thị B', 'FEMALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Làm fulltime', '0900222222', 'Receptionist', '2023-02-01', 'user012'),
+('staff13', '1992-03-03', NULL, 'Lê Văn C', 'MALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Chuyên kỹ thuật điện', '0900333333', 'Technician', '2023-03-01', 'user013'),
+('staff14', '1993-04-04', NULL, 'Phạm Thị D', 'FEMALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Thử việc', '0900444444', 'Cleaner', '2023-04-01', 'user014'),
+('staff15', '1994-05-05', NULL, 'Đỗ Văn E', 'MALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Nhân viên bảo trì', '0900555555', 'Technician', '2023-05-01', 'user015'),
+('staff16', '1995-06-06', NULL, 'Hoàng Thị F', 'FEMALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Nhân viên hành chính', '0900666666', 'Admin', '2023-06-01', 'user016'),
+('staff17', '1996-07-07', NULL, 'Vũ Văn G', 'MALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Kỹ thuật viên điện nước', '0900777777', 'Technician', '2023-07-01', 'user017'),
+('staff18', '1997-08-08', NULL, 'Ngô Thị H', 'FEMALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Phục vụ khách thuê', '0900888888', 'Receptionist', '2023-08-01', 'user018'),
+('staff19', '1998-09-09', NULL, 'Bùi Văn I', 'MALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Thử việc', '0900999999', 'Cleaner', '2023-09-01', 'user019'),
+('staff20', '1999-10-10', NULL, 'Lý Thị J', 'FEMALE', 'https://res.cloudinary.com/dlyprrqnn/image/upload/v1743004321/TEST/wsyqk6znjakexow6a5pc.jpg', 'Làm theo ca', '0900101010', 'Receptionist', '2023-10-01', 'user020');

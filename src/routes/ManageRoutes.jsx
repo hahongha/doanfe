@@ -1,0 +1,116 @@
+import { lazy } from 'react';
+import ManageLayout from '../layout/ManageDashboard';
+// project imports
+import Loadable from 'components/Loadable';
+// render- Dashboard
+const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
+const ManageRenter = Loadable(lazy(() => import('pages/manage/ManageRenter')));
+const ManageBill = Loadable(lazy(() => import('pages/manage/ManageBill')));
+const ManagePayment = Loadable(lazy(() => import('pages/manage/ManagePayment')));
+// const ManageBillDetail = Loadable(lazy(() => import('pages/manage/ManageBillDetail')));
+const ManageContract = Loadable(lazy(() => import('pages/manage/ManageContract')));
+// const ManageContractHistory = Loadable(lazy(() => import('pages/manage/ManageContractHistory')));
+const ManageRoomType = Loadable(lazy(() => import('pages/manage/ManageRoomType')));
+const ManageProfile = Loadable(lazy(() => import('pages/manage/ManageProfile')));
+const ManageRoom = Loadable(lazy(() => import('pages/manage/ManageRoom')));
+const ManageContractMember = Loadable(lazy(() => import('pages/manage/ManageContractMember')));
+// // const ManageEW = Loadable(lazy(() => import('pages/manage/ManageEW')));
+const ManageE = Loadable(lazy(() => import('pages/manage/ManageE')));
+const ManageEW = Loadable(lazy(() => import('pages/manage/ManageEW')));
+const ManageTest = Loadable(lazy(() => import('pages/manage/ManageTest')));
+const ManageStaff = Loadable(lazy(() => import('pages/manage/ManageStaff')));
+const ManageTest2 = Loadable(lazy(() => import('pages/manage/ManageTest2')));
+const ManageService = Loadable(lazy(() => import('pages/manage/ManageService')));
+const ManageRoomReturn = Loadable(lazy(() => import('pages/manage/ManageRoomReturn')));
+const ManageRoomService = Loadable(lazy(() => import('pages/manage/ManageRoomService')));
+const AddContract = Loadable(lazy(() => import('pages/manage/contract/AddContract')));
+const MyAccount = Loadable(lazy(() => import('pages/common/Account')));
+// ==============================|| MAIN ROUTING ||============================== //
+
+const ManageRoutes = {
+  path: '/manager',
+  element: <ManageLayout/>,
+  children: [
+    {
+      path: 'home',
+      element: <DashboardDefault />
+    },
+    {
+      path: 'test',
+      element: <ManageTest />
+    },
+    {
+      path: 'test2',
+      element: <ManageTest2 />
+    },
+    ,
+    {
+      path: 'account',
+      element: <MyAccount />
+    },
+    {
+      path: 'profile',
+      element: <ManageProfile />
+    },
+    {
+      path: 'renter',
+      element: <ManageRenter />
+    },
+    {
+      path: 'roomType',
+      element: <ManageRoomType />
+    },
+    {
+      path: 'contract',
+      element: <ManageContract />
+    },
+    {
+      path: 'payment',
+      element: <ManagePayment />
+    },
+    {
+      path: 'room',
+      element: <ManageRoom />
+    },
+    {
+      path: 'service',
+      element: <ManageService />
+    },
+    {
+      path: 'contractMember',
+      element: <ManageContractMember />
+    },
+    {path:"createContract",
+       element: <AddContract />},
+    {
+      path: 'electric',
+      element: <ManageE />
+    },
+    {
+      path: 'electricwater',
+      element: <ManageEW />
+    },
+    {
+      path: 'bill',
+      element: <ManageBill />
+    },
+    {
+      path: 'roomService',
+      element: <ManageRoomService />
+    },
+    {
+      path: 'roomReturn',
+      element: <ManageRoomReturn />
+    },
+    {
+      path: 'staff',
+      element: <ManageStaff />
+    },
+    {
+      path: 'createContract/:roomId', // Thêm tham số renterId và roomId
+      element: <AddContract />
+    }
+  ]
+};
+
+export default ManageRoutes;
