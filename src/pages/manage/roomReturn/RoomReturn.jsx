@@ -16,22 +16,32 @@ import { getAllRoomRequest } from 'redux/actions/roomAction';
 import { getAllContractRequest } from 'redux/actions/contractAction';
 import { deleteRoomReturnRequest } from 'redux/actions/roomReturnAction';
 import MainCard from 'components/MainCard';
+import InvoicePage from '../bill/InvoicePage';
 const RoomReturn = () => {
   const [roomReturns, setRoomReturns] = useState([]);
-
   const [keyword, setKeyword] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [open, setOpen] = useState(false);
+  const [openBill, setOpenBill] = useState(false);
   const [status, setStatus] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [contractId, setContractId] = useState(null);
   const rooms = useSelector((state) => state.room.all_rooms);
   const contracts = useSelector((state) => state.contract.all_contract);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
   const datas = useSelector((state) => state.roomReturn.roomReturns);
-  const totalRecords = useSelector((state) => state.roomService.totalRecords);
+  const totalRecords = useSelector((state) => state.roomReturn.totalRecords);
   const dispatch = useDispatch();
+  const statusOptions = {
+    PENDING: 'Chờ duyệt',
+    APPROVED: 'Đã tiếp nhận',
+    REJECTED: 'Từ chối',
+    COMPLETED: 'Hoàn tất',
+    IN_PROGRESS: 'Đang xử lý'
+  };
+
+
   useEffect(() => {
     dispatch(
       searchRoomReturnRequest({
@@ -48,12 +58,12 @@ const RoomReturn = () => {
     dispatch(getAllRoomRequest());
     dispatch(getAllContractRequest())
   }, [dispatch, page, rowsPerPage, keyword, roomId, contractId, status]);
-  const handleChangePage = (event, newPage) => {
+    const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 8));
     setPage(0);
   };
     const handleOpen = (row) => {
@@ -161,7 +171,7 @@ const RoomReturn = () => {
                 <TableCell>{dayjs(r.returnDate).format('DD/MM/YYYY')}</TableCell>
                 <TableCell>{r.reason}</TableCell>
                 <TableCell>{r.note}</TableCell>
-                <TableCell>{r.status}</TableCell>
+                <TableCell>{statusOptions[r.status] || "Không xác định"}</TableCell>
                 <TableCell>
                   <IconButton color="primary" onClick={() => handleOpen(r)}>
                     <EditIcon />
@@ -169,7 +179,7 @@ const RoomReturn = () => {
                   <IconButton color="error" onClick={() => handleDelete(r?.id)}>
                     <DeleteIcon />
                   </IconButton>
-                  <IconButton color="error">
+                  <IconButton color="error" onClick={()=> {setOpenBill(true)}}>
                     <CheckIcon />
                   </IconButton>
                 </TableCell>
@@ -183,7 +193,7 @@ const RoomReturn = () => {
         count={totalRecords}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
-        rowsPerPageOptions={[1, 2, 3, 5, 10, 25, 50, 100]}
+        rowsPerPageOptions={[1, 2, 3, 7, 10, 25, 50, 100]}
         onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage="Số hàng mỗi trang"
         labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${`trong`} ${count !== -1 ? count : `more than ${to}`}`}
@@ -194,6 +204,7 @@ const RoomReturn = () => {
           'aria-label': 'Next Page'
         }}
       />
+        <InvoicePage open={openBill} onClose={()=> setOpenBill(false)}/>
         <RoomReturnDetail rooms={rooms} contracts={contracts} open={open} handleClose={handleClose} data={selectedIndex}/>
       </TableContainer>
 

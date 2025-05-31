@@ -21,7 +21,7 @@ export default function RoomCard({room, onClick}) {
       color: "error", 
       icon: <HomeWorkIcon fontSize="small" /> 
     },
-    WAITING: { 
+    PENDING: { 
       label: "Chờ xác nhận", 
       color: "warning", 
       icon: <HourglassTopIcon fontSize="small" /> 

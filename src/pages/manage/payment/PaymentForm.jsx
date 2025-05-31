@@ -25,7 +25,6 @@ const PaymentForm = () => {
   const [va, setVa] = useState(0);
 
   const navigate = useNavigate();
-  // const history = useHistory();
 
   // Dữ liệu form
   const [formData, setFormData] = useState({
@@ -59,7 +58,9 @@ const PaymentForm = () => {
     console.log(formData);
 
     {formData.id ? dispatch(updatePaymentRequest(formData)) : dispatch(addPaymentRequest(formData))}
-    navigate(-1);
+    // navigate(-1);
+    console.log(formData);
+    
     // history.push("/payment-history"); // Chuyển về trang danh sách thanh toán
   };
 

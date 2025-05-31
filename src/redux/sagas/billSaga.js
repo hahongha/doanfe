@@ -57,13 +57,6 @@ function* addBillSaga(action) {
     if (response?.data?.code === '200') {
       yield put(addBillSuccess(response?.data));
       toast.success('Thêm hóa đơn thành công!');
-      yield put(
-        searchBillRequest({
-          page: 0,
-          size: 5,
-          value: `%%`
-        })
-      );
     } else {
       yield put(addBillFail('Thêm hóa đơn thất bại!'));
       toast.error('Thêm hóa đơn thất bại!');
@@ -95,13 +88,6 @@ function* deleteBillSaga(action) {
     if (response?.data?.code === '200') {
       yield put(deleteBillSuccess());
       toast.success('Xóa hóa đơn thành công!');
-      yield put(
-        searchBillRequest({
-          page: 0,
-          size: 5,
-          value: `%%`
-        })
-      );
     } else {
       yield put(deleteBillFail('Xóa hóa đơn thất bại'));
       toast.error('Xóa hóa đơn thất bại');
@@ -118,13 +104,6 @@ function* updateBillSaga(action) {
     if (response?.data?.code === '200') {
       yield put(updateBillSuccess(response?.data));
       toast.success('Cập nhật hóa đơn thành công!');
-      yield put(
-        searchBillRequest({
-          page: 0,
-          size: 5,
-          value: `%%`
-        })
-      );
     } else {
       yield put(updateBillFail('Cập nhật hóa đơn thất bại'));
       toast.error('Cập nhật hóa đơn thất bại!');

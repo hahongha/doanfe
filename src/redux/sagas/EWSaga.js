@@ -57,9 +57,11 @@ function* addEWSaga(action) {
       toast.success('Thêm chỉ số thành công!');
       yield put(
         searchEWRequest({
-          page: 0,
-          size: 5,
+          searchDTO:{
+          page: 8,
+          size: 0,
           value: null
+        }
         })
       );
     } else {
@@ -80,9 +82,11 @@ function* deleteEWSaga(action) {
       toast.success('Xóa chỉ số thành công!');
       yield put(
         searchEWRequest({
-          page: 0,
-          size: 5,
-          value: `%%`
+          searchDTO:{
+          page: 8,
+          size: 0,
+          value: null
+        }
         })
       );
     } else {
@@ -103,9 +107,11 @@ function* updateEWSaga(action) {
       toast.success('Cập nhật chỉ số thành công!');
       yield put(
         searchEWRequest({
-          page: 0,
-          size: 5,
+          searchDTO:{
+          page: 8,
+          size: 0,
           value: null
+        }
         })
       );
     } else {

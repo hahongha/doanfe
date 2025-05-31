@@ -58,7 +58,7 @@ function* addRoomServiceSaga(action) {
         searchRoomServiceRequest({
         searchDTO: { 
           page: 0,
-          size: 5
+          size: 8
         }
       })
       );
@@ -82,7 +82,7 @@ function* deleteRoomServiceSaga(action) {
         searchRoomServiceRequest({
         searchDTO: { 
           page: 0,
-          size: 5
+          size: 8
         }
       })
       );
@@ -106,7 +106,7 @@ function* updateRoomServiceSaga(action) {
         searchRoomServiceRequest({
         searchDTO: { 
           page: 0,
-          size: 5
+          size: 8
         }
       })
       );

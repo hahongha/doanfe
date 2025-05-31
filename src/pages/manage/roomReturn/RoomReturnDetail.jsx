@@ -118,9 +118,10 @@ function RoomReturnDetail({
             onChange={handleChange}
           >
             <MenuItem value="PENDING">Chờ duyệt</MenuItem>
-            <MenuItem value="APPROVED">Đã duyệt</MenuItem>
+            <MenuItem value="APPROVED">Đã tiếp nhận</MenuItem>
             <MenuItem value="REJECTED">Từ chối</MenuItem>
             <MenuItem value="COMPLETED">Hoàn tất</MenuItem>
+            <MenuItem value="IN_PROGRESS">Đang xử lý</MenuItem>
           </Select>
         </FormControl>
       </DialogContent>

@@ -2,36 +2,52 @@ import React, { useEffect, useState } from 'react';
 import {
   Box, Paper, Typography, Grid, Card, CardContent, CardMedia,
   Button, FormControlLabel, Checkbox, Dialog, DialogActions,
-  DialogContent, DialogTitle, TextField
+  DialogContent, DialogTitle, TextField,
+  Snackbar
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import http from 'src/redux/api/http';
 import { toast } from 'react-toastify';
-import ContractMemberDialog from '../contract_member/ContractMemberDialog';
-
+import CMLinkCard from './CMLinkCard';
 const ContractMemberTab = ({contractId}) => {
-  const [openDialog, setOpenDialog] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [newProfile, setNewProfile] = useState({
+  const initData = {
+  id: null,
+  contract: {
     id: '',
+    renter: null, // hoặc {} nếu bạn muốn khởi tạo rỗng
+    room: null
+  },
+  contractMember: {
+    id: null,
+    createAt: '',
+    updateAt: '',
+    createBy: '',
     fullName: '',
     gender: 'FEMALE',
+    status: '',
     phone: '',
     dob: '',
     placeOfOrigin: '',
     address: '',
     familyPhone: '',
+    isRegister: false,
     identification: '',
     rentalRelationship: '',
-    isRegister: false,
-    status: '',
+    imageUrl: '',
     contractResponseDTO: {
       id: ''
     }
-  });
+  },
+  active: true
+};
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [newProfile, setNewProfile] = useState(initData);
+  const [edit, setEdit] = useState(null);
 
   const [profiles, setProfiles] = useState([]);
   const isAuthenticated = useSelector((state) => !!state.auth.accessToken);
@@ -52,15 +68,13 @@ const ContractMemberTab = ({contractId}) => {
           return;
         }
     
-        const response = await http.get(`/contractMember/getByContract?contract=${contract}`);
+        const response = await http.get(`/contract_member_links/search?contractId=${contract}`);
         
         
     
         if (response.data.code === "200") {
           
           setProfiles(response.data.data);
-          
-          
         } else {
           toast.error({
             message: "Lỗi",
@@ -78,6 +92,7 @@ const ContractMemberTab = ({contractId}) => {
         setLoading(false);
       }
     };
+
     useEffect(() => {
       if (isAuthenticated) {
         fetchMember();
@@ -85,6 +100,30 @@ const ContractMemberTab = ({contractId}) => {
         navigate("/login");
       }
     }, [contract]);
+
+  const [snackbar, setSnackbar] = React.useState({ open: false, message: '', severity: 'success' });
+
+  const handleMarkAsInactive = async (id) => {
+    try {
+      await http.put(`/contract_member_links/cancel/${id}`);
+      setSnackbar({ open: true, message: 'Đã đánh dấu là rời đi.', severity: 'success' });
+      fetchMember(); // reload danh sách nếu cần
+    } catch (error) {
+      setSnackbar({ open: true, message: 'Lỗi khi đánh dấu rời đi.', severity: 'error' });
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await http.delete(`/contract_member_links/${id}`);
+      setSnackbar({ open: true, message: 'Đã xóa thành công.', severity: 'success' });
+      fetchMember(); // reload danh sách nếu cần
+    } catch (error) {
+      console.error(error);
+      setSnackbar({ open: true, message: 'Lỗi khi xóa.', severity: 'error' });
+    }
+  };
+
 
   const handleClickOpenDialog = (profile = null, index = null) => {
     if (profile) {
@@ -94,8 +133,13 @@ const ContractMemberTab = ({contractId}) => {
     } else {
       setNewProfile({
         id: '',
+        contract:{
+
+        },
+        contractMember:{
+          id: '',
         fullName: '',
-        gender: 'Female',
+        gender: 'MALE',
         phone: '',
         dob: '',
         placeOfOrigin: '',
@@ -106,7 +150,8 @@ const ContractMemberTab = ({contractId}) => {
         isRegister: false,
         status: '',
         contractResponseDTO: {
-          id: ''
+          id: contractId
+        }
         }
       });
       setEditMode(false);
@@ -120,7 +165,7 @@ const ContractMemberTab = ({contractId}) => {
     setNewProfile({
       id: '',
       fullName: '',
-      gender: 'Female',
+      gender: 'MALE',
       phone: '',
       dob: '',
       placeOfOrigin: '',
@@ -131,7 +176,7 @@ const ContractMemberTab = ({contractId}) => {
       isRegister: false,
       status: '',
       contractResponseDTO: {
-        id: ''
+        id: contractId
       }
     });
   };
@@ -147,30 +192,52 @@ const ContractMemberTab = ({contractId}) => {
           {profiles.length > 0 ? (
             profiles.map((profile, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', 
+                  opacity: profile.active ? 1 : 0.5,
+                      filter: profile.active ? 'none' : 'grayscale(100%)',
+                      transition: 'all 0.3s',
+
+                }}>
                   <CardMedia
                     component="img"
                     height="200"
-                    image={profile.imageUrl || 'https://via.placeholder.com/200'}
+                    image={profile?.contractMember?.imageUrl || 'https://via.placeholder.com/200'}
                     alt="Ảnh đại diện"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6">{profile.fullName || 'N/A'}</Typography>
-                    <Typography variant="body2"><strong>Giới tính:</strong> {profile.gender}</Typography>
-                    <Typography variant="body2"><strong>Trạng thái:</strong> {profile.status}</Typography>
-                    <Typography variant="body2"><strong>SĐT:</strong> {profile.phone}</Typography>
-                    <Typography variant="body2"><strong>Ngày sinh:</strong> {profile.dob}</Typography>
-                    <Typography variant="body2"><strong>Quê quán:</strong> {profile.placeOfOrigin}</Typography>
-                    <Typography variant="body2"><strong>Thường trú:</strong> {profile.address}</Typography>
+                    <Typography variant="h6">{profile?.contractMember?.fullName || 'N/A'}</Typography>
+                    <Typography variant="body2"><strong>Giới tính:</strong> {profile?.contractMember?.gender}</Typography>
+                    <Typography variant="body2"><strong>Trạng thái:</strong> {profile?.contractMember?.status}</Typography>
+                    <Typography variant="body2"><strong>SĐT:</strong> {profile?.contractMember?.phone}</Typography>
+                    <Typography variant="body2"><strong>Ngày sinh:</strong> {profile?.contractMember?.dob}</Typography>
+                    <Typography variant="body2"><strong>Quê quán:</strong> {profile?.contractMember?.placeOfOrigin}</Typography>
+                    <Typography variant="body2"><strong>Thường trú:</strong> {profile?.contractMember?.address}</Typography>
                     <FormControlLabel
-                      control={<Checkbox checked={profile.isRegister} disabled />}
+                      control={<Checkbox checked={profile?.contractMember?.isRegister} disabled />}
                       label="Đã đăng ký tạm trú"
                     />
                   </CardContent>
                   <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', gap:2}}>
-                    <Button variant="contained" size="small" onClick={() => handleClickOpenDialog(profile, index)}>
-                      Chỉnh sửa
-                    </Button>
+                    <Button
+                        variant="contained"
+                        size="small"
+                        color="warning"
+                        onClick={() => {
+                          handleMarkAsInactive(profile?.id);
+                        }}
+                      >
+                        Đã rời đi
+                      </Button>
+
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="success"
+                        onClick={() => {handleDelete(profile?.id)}}
+                      >
+                        Xóa bỏ
+                      </Button>
+
                   </Box>
                 </Card>
               </Grid>
@@ -185,29 +252,16 @@ const ContractMemberTab = ({contractId}) => {
           <Button variant="contained" color="success" onClick={() => handleClickOpenDialog()}>
             Thêm Người Ở
           </Button>
-        </Box>  {/* Dialog dùng chung cho Thêm / Chỉnh sửa
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{editMode ? 'Chỉnh Sửa Người Ở' : 'Thêm Người Ở'}</DialogTitle>
-        <DialogContent>
-          <TextField margin="dense" label="Họ và tên" fullWidth name="fullName" value={newProfile.fullName} onChange={handleInputChange} />
-          <TextField margin="dense" label="Giới tính" fullWidth name="gender" value={newProfile.gender} onChange={handleInputChange} />
-          <TextField margin="dense" label="Trạng thái" fullWidth name="status" value={newProfile.status} onChange={handleInputChange} />
-          <TextField margin="dense" label="Số điện thoại" fullWidth name="phone" value={newProfile.phone} onChange={handleInputChange} />
-          <TextField margin="dense" label="Ngày sinh" type="date" fullWidth name="dob" value={newProfile.dob} onChange={handleInputChange} InputLabelProps={{ shrink: true }} />
-          <TextField margin="dense" label="Quê quán" fullWidth name="placeOfOrigin" value={newProfile.placeOfOrigin} onChange={handleInputChange} />
-          <TextField margin="dense" label="Nơi thường trú" fullWidth name="address" value={newProfile.address} onChange={handleInputChange} />
-          <FormControlLabel
-            control={<Checkbox checked={newProfile.isRegister} onChange={handleCheckboxChange} />}
-            label="Đã đăng ký tạm trú"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="secondary">Hủy</Button>
-          <Button onClick={handleSaveProfile} color="primary">{editMode ? 'Lưu thay đổi' : 'Thêm'}</Button>
-        </DialogActions>
-      </Dialog> */}
-      <ContractMemberDialog open={openDialog} handleClose={handleCloseDialog} member={newProfile} contractId={contract} />
+        </Box>
+        <CMLinkCard open={openDialog} onClose={handleCloseDialog} contractId={contractId}/>
+      {/* <ContractMemberDialog open={openDialog} handleClose={handleCloseDialog} member={newProfile} contractId={contract} /> */}
       </Paper>
+      <Snackbar
+        open={snackbar.open}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        autoHideDuration={3000}
+      />
     </Box>
   );
 };

@@ -55,6 +55,7 @@ const PaymentSearch = ({ onSearch }) => {
             onChange={(e) => setPaymentMethod(e.target.value)}
             label="Phương thức thanh toán"
           >
+            <MenuItem value={null}>Tất cả</MenuItem>
             <MenuItem value="CASH">Tiền mặt</MenuItem>
             <MenuItem value="BANK-TRANSFER">Chuyển khoản ngân hàng</MenuItem>
             <MenuItem value="MOMO">MOMO</MenuItem>

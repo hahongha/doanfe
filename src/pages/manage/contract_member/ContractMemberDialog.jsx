@@ -20,7 +20,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Avatar
+  Avatar,
+  FormHelperText
 } from '@mui/material';
 import MainCard from 'components/MainCard';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -28,7 +29,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { CloseOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllContractRequest } from 'redux/actions/contractAction';
 import { addContractMemberRequest, updateContractMemberRequest } from 'redux/actions/contractMemberAction';
 
 const fieldLabels = {
@@ -42,13 +42,7 @@ const fieldLabels = {
 };
 function ContractMemberDialog({ member, open, handleClose, contractId }) {
   const [errors, setErrors] = useState({});
-  const [contract, setContract] = useState('');
-  const contractData = useSelector((state) => state.contract.all_contract);
-  const totalRecords = useSelector((state) => state.contract.totalRecords);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllContractRequest());
-  }, [dispatch]);
+
   const initData = {
     id: '',
     fullName: '',
@@ -61,47 +55,74 @@ function ContractMemberDialog({ member, open, handleClose, contractId }) {
     identification: '',
     rentalRelationship: '',
     isRegister: false,
-    status: '',
-    contractResponseDTO: {
-      id: ''
-    }
+    status: ''
   };
 
   const [newCard, setNewCard] = useState(member ? member : initData);
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [imageError, setImageError] = useState(false);
 
-  useEffect(()=>{
-    if (contractId) {
-      setContract(contractId);
-    }
-  },[contractId])
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (member) {
       setNewCard(member);
-      setContract(member.contractResponseDTO.id);
+      setImageUrl(member?.imageUrl || '');
     }
   }, [member]); // Chạy khi selectedMember thay đổi
+
+    const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setImageFile(file);
+      setImageError(false);
+    }
+  };
+
   const validate = () => {
     let tempErrors = {};
     Object.keys(fieldLabels).forEach((field) => {
       const keys = field.split('.');
-      const value = keys.length > 1 ? renter.user[keys[1]] : renter[field];
+      const value = keys.length > 1 ? member.user[keys[1]] : member[field];
       if (!value) tempErrors[field] = 'Trường này không được để trống';
     });
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
   const handleAddCard = () => {
-    setNewCard([
-      {
-        createAt: new Date().toISOString().split('T')[0],
-        updateAt: new Date().toISOString().split('T')[0],
-        createBy: 'Admin',
-        ...newCard
+    if (validate()) {
+      try {
+        const updatedMember = {
+          ...newCard
+        };
+
+        const formData = new FormData();
+        formData.append(
+          'member',
+          new Blob([JSON.stringify(updatedMember)], { type: 'application/json' })
+        );
+
+        if (imageFile) {
+          formData.append('file', imageFile);
+        }
+
+        if (member.id) {
+          dispatch(updateContractMemberRequest(formData));
+        } else {
+          dispatch(addContractMemberRequest(formData));
+        }
+        handleClose();
+      } catch (error) {
+        console.error('Error saving member:', error);
+        // Display error to user (e.g., via Snackbar)
       }
-    ]);
-    newCard.id ? dispatch(updateContractMemberRequest(newCard)) : dispatch(addContractMemberRequest(newCard));
-    handleClose();
+    }
   };
 
   const handleChange = (e) => {
@@ -126,9 +147,25 @@ function ContractMemberDialog({ member, open, handleClose, contractId }) {
         </DialogTitle>
         <DialogContent>
           <Grid2 container spacing={5} sx={{ marginTop: 5 }}>
-            <Grid2 size={12}>
-              <Avatar sizes="12" src={newCard.imageUrl} />
-            </Grid2>
+              <Grid2 size={12} display="flex" justifyContent="center" alignItems="center">
+            <label htmlFor="upload-avatar" style={{ cursor: 'pointer' }}>
+              <Avatar
+                src={imageUrl}
+                alt={member?.fullName || 'Avatar'}
+                sx={{ width: 100, height: 100 }}
+              />
+            </label>
+            <input
+              accept="image/*"
+              type="file"
+              id="upload-avatar"
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+            />
+            {imageError && (
+              <FormHelperText error>Lỗi khi tải ảnh lên. Vui lòng thử lại.</FormHelperText>
+            )}
+          </Grid2>
             {Object.keys(fieldLabels).map((field, index) => (
               <Grid2 size={6} key={index}>
                 <TextField
@@ -194,33 +231,6 @@ function ContractMemberDialog({ member, open, handleClose, contractId }) {
                 />
               </Grid2>
             </Grid2>
-            <Grid2 item size={12}>
-              <InputLabel>Hợp đồng</InputLabel>
-              <FormControl fullWidth>
-                <Select
-                  labelId="role-label"
-                  value={contract}
-                  onChange={(event) => {
-                    setContract(event.target.value);
-                    setNewCard((prev) => ({
-                      ...prev,
-                      contractResponseDTO: {
-                        ...prev.contractResponseDTO,
-                        id: event.target.value
-                      }
-                    }));
-                  }}
-                >
-                  {contractData.map((room) => (
-                    <MenuItem key={room.id} value={room.id}>
-                      <Typography variant="body2">
-                        📜 <strong>Mã hợp đồng</strong> {room.id}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid2>
           </Grid2>
         </DialogContent>
         <DialogActions>
@@ -229,7 +239,7 @@ function ContractMemberDialog({ member, open, handleClose, contractId }) {
             Lưu
           </Button>
         </DialogActions>
-      </Dialog>
+    </Dialog>
     </MainCard>
   );
 }

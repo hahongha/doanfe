@@ -16,7 +16,11 @@ const ManageRoom = Loadable(lazy(() => import('pages/manage/ManageRoom')));
 const ManageContractMember = Loadable(lazy(() => import('pages/manage/ManageContractMember')));
 // // const ManageEW = Loadable(lazy(() => import('pages/manage/ManageEW')));
 const ManageE = Loadable(lazy(() => import('pages/manage/ManageE')));
+// const ManageBillType = Loadable(lazy(() => import('pages/manage/ManageBillType')));
+const BillDetailPage = Loadable(lazy(() => import('pages/manage/bill/BillDetailPage')));
 const ManageEW = Loadable(lazy(() => import('pages/manage/ManageEW')));
+const Blog = Loadable(lazy(() => import('pages/manage/blog/Blog')));
+const BlogDetail = Loadable(lazy(() => import('pages/manage/blog/BlogDetail')));
 const ManageTest = Loadable(lazy(() => import('pages/manage/ManageTest')));
 const ManageStaff = Loadable(lazy(() => import('pages/manage/ManageStaff')));
 const ManageTest2 = Loadable(lazy(() => import('pages/manage/ManageTest2')));
@@ -134,6 +138,22 @@ const ManageRoutes = {
     {
       path:'report', // Thêm tham số renterId và roomId
       element: <Report />
+    },
+    // {
+    //   path:'billType', // Thêm tham số renterId và roomId
+    //   element: <ManageBillType />
+    // },
+    {
+      path:'billDetail/bill/:billId', // Thêm tham số renterId và roomId
+      element: <BillDetailPage />
+    },
+    {
+      path:'blog', // Thêm tham số renterId và roomId
+      element: <Blog />
+    },
+    {
+      path:'blog/:statusId', // Thêm tham số renterId và roomId
+      element: <BlogDetail />
     },
   ]
 };

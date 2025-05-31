@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { deleteContractRequest, updateContractRequest } from 'redux/actions/contractAction';
 import InfoRow from './InfoRow';
 import { useNavigate } from 'react-router';
-// import ContractDialog from './ContractDialog';
 
 const ContractTab = ({ contractData }) => {
   const dispatch = useDispatch();
@@ -51,7 +50,7 @@ const ContractTab = ({ contractData }) => {
         <Box sx={{ backgroundColor: '#1e88e5', color: 'white', p: 3, textAlign: 'center' }}>
           <Typography variant="h5" fontWeight="bold">THÔNG TIN HỢP ĐỒNG</Typography>
           <Typography variant="subtitle1" mt={1}>
-            Mã hợp đồng: <strong>{contractId || 'HD00123'}</strong>
+            Mã hợp đồng: <strong>{contractData?.id || 'HD00123'}</strong>
           </Typography>
         </Box>
 
@@ -64,8 +63,14 @@ const ContractTab = ({ contractData }) => {
             <Stack spacing={2}>
               <InfoRow label="Số tháng thuê" name="month" value={month} editMode={editMode} onChange={handleChange} />
               <InfoRow label="Ngày bắt đầu" name="startDate" value={startDate} editMode={editMode} onChange={handleChange} type='date'/>
-              <InfoRow label="Ngày kết thúc (dự kiến)" name="endDate" value={endDate} editMode={editMode} onChange={handleChange} type='date'/>
-              <InfoRow label="Ngày kết thúc thực tế" name="realEndDate" value={realEndDate} editMode={editMode} onChange={handleChange} type='date'/>
+              <InfoRow label="Ngày kết thúc (dự kiến)" name="endDate" 
+              value={endDate} onChange={handleChange} type='date'
+              InputProps={{
+                readOnly: true
+              }}
+              />
+              <InfoRow label="Ngày kết thúc thực tế" name="realEndDate" editMode={editMode}
+              value={realEndDate} onChange={handleChange} type='date'/>
               <InfoRow label="Ngày ký hợp đồng" name="signatureDate" value={signatureDate} editMode={editMode} onChange={handleChange} />
             </Stack>
           </Grid>
@@ -78,17 +83,18 @@ const ContractTab = ({ contractData }) => {
             <Stack spacing={2}>
               <InfoRow label="Giá thuê/tháng" name="rentalPrice" value={rentalPrice} editMode={editMode} onChange={handleChange} />
               <InfoRow label="Tiền cọc" name="deposit" value={deposit} editMode={editMode} onChange={handleChange} type='text' />
-              <InfoRow 
-                label="Trạng thái cọc" 
-                value={
-                  <Chip
-                    label={status === 'ACTIVE' ? 'Có hiệu lực' : 'Không hiệu lực'}
-                    color={status === 'ACTIVE' ? 'primary' : 'error'}
-                    variant="outlined"
-                    sx={{ width: 120, justifyContent: 'center' }}
-                    />
-                }
-              />
+              <InfoRow
+              label="Trạng thái cọc"
+              name="isDeposit"
+              type="select"
+              value={isDeposit}
+              options={{
+                true: "Đã đặt cọc",
+                false: "Chưa đặt cọc"
+              }}
+              editMode={editMode}
+              onChange={handleChange}
+            />
             </Stack>
           </Grid>
         </Grid>

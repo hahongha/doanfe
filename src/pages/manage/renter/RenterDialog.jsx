@@ -83,7 +83,7 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
 
   useEffect(() => {
     setRenter(renterData || initialData);
-    setImageUrl(renterData?.user?.imageUrl || '');
+    setImageUrl(renterData?.imageUrl || '');
   }, [renterData]);
 
   const handleChange = (e) => {
@@ -131,8 +131,7 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
     if (validate()) {
       try {
         const updatedRenter = {
-          ...renter,
-          user: { ...renter.user, imageUrl },
+          ...renter
         };
 
         const formData = new FormData();

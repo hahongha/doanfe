@@ -133,6 +133,7 @@ const manager = {
       icon: icons.PaymentOutlinedIcon,
       breadcrumbs: false
     },
+
     // {
     //   id: 'managerTK',
     //   title: 'Thống kê',
@@ -141,14 +142,14 @@ const manager = {
     //   icon: icons.EqualizerOutlinedIcon,
     //   breadcrumbs: false
     // },
-    // {
-    //   id: 'managerComplaint',
-    //   title: 'Thông tin khiếu nại',
-    //   type: 'item',
-    //   url: '/manager/complaint',
-    //   icon: icons.ReportProblemOutlinedIcon,
-    //   breadcrumbs: false
-    // }
+    {
+      id: 'managerComplaint',
+      title: 'Thông tin khiếu nại',
+      type: 'item',
+      url: '/manager/complaint',
+      icon: icons.ReportProblemOutlinedIcon,
+      breadcrumbs: false
+    }
   ]
 };
 

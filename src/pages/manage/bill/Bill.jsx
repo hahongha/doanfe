@@ -118,7 +118,7 @@ const Bill = () => {
                     {invoice?.status !== 'PAID' && (
                       <>
                       <Button variant="outlined" color="success" onClick={()=>navigate(`/manager/create-payment/${invoice?.id}`)}>Thanh toán ngay</Button>
-                      <Button variant="contained" color="primary" onClick={()=>handleOpen(invoice)}>Chỉnh sửa</Button>
+                      <Button variant="contained" color="primary" onClick={()=>navigate(`/manager/billDetail/bill/${invoice?.id}`)}>Chỉnh sửa</Button>
                       </>
                       
                    )}

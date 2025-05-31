@@ -22,15 +22,16 @@ import {
   Snackbar,
   Alert,
   TablePagination,
+  Grid,
+  Tooltip,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MainCard from 'components/MainCard';
-import PaymentSearch from "./PaymentSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { searchPaymentRequest } from "redux/actions/paymentAction";
-
+import RefreshIcon from "@mui/icons-material/Refresh";
 const formatCurrency = (value) =>
   value.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 
@@ -43,6 +44,20 @@ const PaymentHistory = () => {
   const paymentData = useSelector((state) => state.payment.payments);
   const totalRecords = useSelector((state) => state.payment.totalRecords);
   const navigate = useNavigate();
+  const [paymentMethod, setPaymentMethod] = useState("");
+    const [paymentDate, setPaymentDate] = useState("");
+    const [status, setStatus] = useState("");
+    const [minAmount, setMinAmount] = useState("");
+    const [maxAmount, setMaxAmount] = useState("");
+  
+    // Hàm reset tìm kiếm
+    const handleReset = () => {
+      setPaymentMethod(null);
+      setPaymentDate(null);
+      setStatus(null);
+      setMinAmount(null);
+      setMaxAmount(null);
+    };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -68,10 +83,6 @@ const PaymentHistory = () => {
     setKeyword(event.target.value);
   };
 
-  const handleSearch = (criteria) => {
-    setSearchCriteria(criteria); // Cập nhật tiêu chí tìm kiếm
-  };
-
   // Handle Open/Close Dialogs
   const handleEditClick = (payment) => {
     setPaymentToEdit(payment);
@@ -92,7 +103,64 @@ const PaymentHistory = () => {
 
   return (
     <MainCard title = "Lịch sử thanh toán">
-       <PaymentSearch onSearch={handleSearch} />
+       <Grid container spacing={2} alignItems="center" sx={{mb:2}}>
+  {/* Phương thức thanh toán */}
+  <Grid item xs={12} sm={4} md={3}>
+    <FormControl fullWidth>
+      <InputLabel>Phương thức thanh toán</InputLabel>
+      <Select
+        value={paymentMethod || ""}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+        label="Phương thức thanh toán"
+      >
+        <MenuItem value="">Tất cả</MenuItem>
+        <MenuItem value="CASH">Tiền mặt</MenuItem>
+        <MenuItem value="BANK_TRANSFER">Chuyển khoản ngân hàng</MenuItem>
+        <MenuItem value="MOMO">MOMO</MenuItem>
+        <MenuItem value="VNPAY">VNPAY</MenuItem>
+      </Select>
+    </FormControl>
+  </Grid>
+
+  {/* Ngày thanh toán */}
+  <Grid item xs={12} sm={4} md={3}>
+    <TextField
+      type="date"
+      label="Ngày thanh toán"
+      fullWidth
+      value={paymentDate}
+      onChange={(e) => setPaymentDate(e.target.value)}
+      InputLabelProps={{ shrink: true }}
+    />
+  </Grid>
+
+  {/* Khoảng giá trị thanh toán */}
+  <Grid item xs={6} sm={2} md={2}>
+    <TextField
+      label="Từ (VND)"
+      type="number"
+      fullWidth
+      value={minAmount}
+      onChange={(e) => setMinAmount(e.target.value)}
+    />
+  </Grid>
+
+  <Grid item xs={6} sm={2} md={2}>
+    <TextField
+      label="Đến (VND)"
+      type="number"
+      fullWidth
+      value={maxAmount}
+      onChange={(e) => setMaxAmount(e.target.value)}
+    />
+  </Grid>
+
+  {/* Nút làm mới */}
+  <Grid item xs={12} sm={12} md={2} textAlign="center">
+    <Button variant="outlined" onClick={handleReset}>Làm mới</Button>
+  </Grid>
+</Grid>
+
       <Table>
         <TableHead>
           <TableRow>

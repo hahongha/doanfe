@@ -1,11 +1,7 @@
-import RoomCreate from "./room/RoomCreate";
-
-
+import Blog from "./blog/Blog";
 
 function ManageTest2() {
-  return ( 
-    <RoomCreate open={true}/>
-   );
+  return ( <><><><Blog/></></></> );
 }
 
 export default ManageTest2;

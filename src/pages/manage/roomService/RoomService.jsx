@@ -41,7 +41,7 @@ export default function DisplayServiceTable() {
   const roomData = useSelector((state) => state.room.all_rooms);
   const serviceData = useSelector((state) => state.service.all_service);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(8);
   const datas = useSelector((state) => state.roomService.roomServices);
   const totalRecords = useSelector((state) => state.roomService.totalRecords);
   const dispatch = useDispatch();
@@ -153,6 +153,7 @@ export default function DisplayServiceTable() {
             <TableCell><strong>Phòng</strong></TableCell>
             <TableCell><strong>Dịch vụ</strong></TableCell>
             <TableCell><strong>Giá</strong></TableCell>
+             <TableCell><strong>Số lượng</strong></TableCell>
             <TableCell><strong>Ngày bắt đầu</strong></TableCell>
             <TableCell><strong>Ngày kết thúc</strong></TableCell>
             <TableCell><strong>Trạng thái</strong></TableCell>
@@ -195,7 +196,7 @@ export default function DisplayServiceTable() {
         count={totalRecords}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
-        rowsPerPageOptions={[1, 2, 3, 5, 10, 25, 50, 100]}
+        rowsPerPageOptions={[1, 2, 3, 8, 10, 25, 50, 100]}
         onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage="Số hàng mỗi trang"
         labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${`trong`} ${count !== -1 ? count : `more than ${to}`}`}
