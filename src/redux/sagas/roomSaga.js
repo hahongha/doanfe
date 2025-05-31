@@ -57,7 +57,7 @@ function* addRoomSaga(action) {
       yield put(
         searchRoomRequest({
           page: 0,
-          size: 5,
+          size: 3,
           value: `%%`
         })
       );
@@ -80,7 +80,7 @@ function* deleteRoomSaga(action) {
       yield put(
         searchRoomRequest({
           page: 0,
-          size: 5,
+          size: 3,
           value: `%%`
         })
       );
@@ -103,7 +103,7 @@ function* updateRoomSaga(action) {
       yield put(
         searchRoomRequest({
           page: 0,
-          size: 5,
+          size: 3,
           value: `%%`
         })
       );

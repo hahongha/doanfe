@@ -7,6 +7,12 @@ export const getAllBill = async () => {
   const response = await http.get(`/bill/getAll`);
   return response;
 };
+
+export const getBillById = async (id) => {
+  const response = await http.get(`/bill/${id}`);
+  return response;
+};
+
 export const addBill = async (data) => {
   const response = await http.post(`/bill`, data);
   return response;

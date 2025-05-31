@@ -8,13 +8,16 @@ import {
     DELETE_BILL_FAIL,
     DELETE_BILL_REQUEST,
     DELETE_BILL_SUCCESS,
+    GET_BILL_FAIL,
+    GET_BILL_REQUEST,
+    GET_BILL_SUCCESS,
     SEARCH_BILL_FAIL,
     SEARCH_BILL_REQUEST,
     SEARCH_BILL_SUCCESS,
     UPDATE_BILL_FAIL,
     UPDATE_BILL_REQUEST,
     UPDATE_BILL_SUCCESS
-  } from '../constaints/BillConstaints';
+  } from '../constaints/billConstaints';
   
   export const getAllBillRequest = (payload) => ({
     type: ALL_BILL_REQUEST,
@@ -94,3 +97,18 @@ import {
     payload
   });
   
+  // get
+  export const getBillRequest = (payload) => ({
+    type: GET_BILL_REQUEST,
+    payload
+  });
+  
+  export const getBillSuccess = (payload) => ({
+    type: GET_BILL_SUCCESS,
+    payload
+  });
+  
+  export const getBillFail = (payload) => ({
+    type: GET_BILL_FAIL,
+    payload
+  });

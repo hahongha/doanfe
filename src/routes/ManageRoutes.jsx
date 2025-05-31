@@ -25,6 +25,11 @@ const ManageRoomReturn = Loadable(lazy(() => import('pages/manage/ManageRoomRetu
 const ManageRoomService = Loadable(lazy(() => import('pages/manage/ManageRoomService')));
 const AddContract = Loadable(lazy(() => import('pages/manage/contract/AddContract')));
 const MyAccount = Loadable(lazy(() => import('pages/common/Account')));
+const CreatePayment = Loadable(lazy(() => import('pages/manage/payment/PaymentForm')));
+const Income = Loadable(lazy(() => import('pages/manage/report/Income')));
+const Expense = Loadable(lazy(() => import('pages/manage/report/Expense')));
+const Report = Loadable(lazy(() => import('pages/manage/report/Report')));
+const RoomReturnFormPage = Loadable(lazy(() => import('pages/manage/roomReturn/RoomReturnPage')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const ManageRoutes = {
@@ -109,7 +114,27 @@ const ManageRoutes = {
     {
       path: 'createContract/:roomId', // Thêm tham số renterId và roomId
       element: <AddContract />
-    }
+    },
+    {
+      path: 'createRoomReturn/:contractId/:roomId', // Thêm tham số renterId và roomId
+      element: <RoomReturnFormPage />
+    },
+    {
+      path:'create-payment/:billId', // Thêm tham số renterId và roomId
+      element: <CreatePayment />
+    },
+    {
+      path:'income', // Thêm tham số renterId và roomId
+      element: <Income />
+    },
+    {
+      path:'expense', // Thêm tham số renterId và roomId
+      element: <Expense />
+    },
+    {
+      path:'report', // Thêm tham số renterId và roomId
+      element: <Report />
+    },
   ]
 };
 

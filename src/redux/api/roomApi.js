@@ -9,7 +9,11 @@ export const getAllRoom = async () => {
   return response;
 };
 export const addRoom = async (data) => {
-  const response = await http.post(`/room`, data);
+  const response = await http.post(`/room`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
   return response;
 };
 
@@ -19,6 +23,10 @@ export const deleteRoom = async (id) => {
 };
 
 export const updateRoom = async (data) => {
-  const response = await http.put(`/room`, data);
+  const response = await http.put(`/room`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
   return response;
 };

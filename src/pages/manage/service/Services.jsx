@@ -108,7 +108,7 @@ export default function Services() {
   };
 
   return (
-    <MainCard>
+    <MainCard title= "Danh sách dịch vụ">
       <Grid2 container spacing={2} alignItems="center" mb={4}>
         <Grid2 size={6}>
           <SearchBar keyword={keyword} onChange={handleSearchChange} />

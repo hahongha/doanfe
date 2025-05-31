@@ -48,7 +48,7 @@ export default function ContractDetail({contract}) {
             <Grid2 size={5}>
               <Typography variant="h3" gutterBottom>Thông tin người thuê</Typography>
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
-                <Avatar src={contract?.renter?.user?.imageUrl} alt="avatar" sx={{ width: 56, height: 56 }} />
+                <Avatar src={contract?.renter?.imageUrl} alt="avatar" sx={{ width: 56, height: 56 }} />
                 <div>
                   <Typography variant="body1"><strong>Họ và tên:</strong>{contract?.renter.fullName}</Typography>
                   <Typography variant="body1"><strong>Giới tính:</strong>{getGender(contract?.renter?.gender)}</Typography>
@@ -70,13 +70,13 @@ export default function ContractDetail({contract}) {
               {/* <Typography variant="body1"><strong>Giá phòng:</strong> {contract?.room?.room_Type?.cost} VNĐ</Typography> */}
               <Typography variant="body1"><strong>Mô tả:</strong> {contract?.room?.description}</Typography>
             </Grid2>
-            {showActions && (
+            {/* {showActions && (
             <Stack direction="row" spacing={2} justifyContent="center" marginTop={3}>
               <Button variant="contained" color="primary">Gia hạn</Button>
               <Button variant="contained" color="warning">Không gia hạn</Button>
               <Button variant="outlined" color="error">Hủy hợp đồng</Button>
             </Stack>
-          )}
+          )} */}
           </Grid2>
 
           

@@ -8,6 +8,9 @@ import {
     DELETE_BILL_FAIL,
     DELETE_BILL_REQUEST,
     DELETE_BILL_SUCCESS,
+    GET_BILL_FAIL,
+    GET_BILL_REQUEST,
+    GET_BILL_SUCCESS,
     SEARCH_BILL_FAIL,
     SEARCH_BILL_REQUEST,
     SEARCH_BILL_SUCCESS,
@@ -31,6 +34,7 @@ import {
       case DELETE_BILL_REQUEST:
       case UPDATE_BILL_REQUEST:
       case SEARCH_BILL_REQUEST:
+      case GET_BILL_REQUEST:
         return {
           ...state,
           error: null,
@@ -52,6 +56,7 @@ import {
         };
       case ADD_BILL_SUCCESS:
       case UPDATE_BILL_SUCCESS:
+      case GET_BILL_SUCCESS:
         return {
           ...state,
           bill: action?.payload?.data,
@@ -67,6 +72,7 @@ import {
       case DELETE_BILL_FAIL:
       case UPDATE_BILL_FAIL:
       case SEARCH_BILL_FAIL:
+      case GET_BILL_FAIL:
         return {
           ...state,
           error: action.payload,

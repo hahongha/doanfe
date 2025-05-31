@@ -165,7 +165,7 @@ function Renter() {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Avatar</TableCell>
+            <TableCell>Hình ảnh</TableCell>
             <TableCell>Họ và tên</TableCell>
             <TableCell>Giới tính</TableCell>
             <TableCell>Số điện thoại</TableCell>

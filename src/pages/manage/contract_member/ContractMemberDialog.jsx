@@ -69,15 +69,18 @@ function ContractMemberDialog({ member, open, handleClose, contractId }) {
 
   const [newCard, setNewCard] = useState(member ? member : initData);
 
+  useEffect(()=>{
+    if (contractId) {
+      setContract(contractId);
+    }
+  },[contractId])
+
   useEffect(() => {
     if (member) {
       setNewCard(member);
       setContract(member.contractResponseDTO.id);
     }
-    if (contractId) {
-      setContract(contractId);
-    }
-  }, [member, contractId]); // Chạy khi selectedMember thay đổi
+  }, [member]); // Chạy khi selectedMember thay đổi
   const validate = () => {
     let tempErrors = {};
     Object.keys(fieldLabels).forEach((field) => {

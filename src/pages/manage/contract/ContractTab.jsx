@@ -6,6 +6,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { deleteContractRequest, updateContractRequest } from 'redux/actions/contractAction';
 import InfoRow from './InfoRow';
+import { useNavigate } from 'react-router';
 // import ContractDialog from './ContractDialog';
 
 const ContractTab = ({ contractData }) => {
@@ -18,6 +19,8 @@ const ContractTab = ({ contractData }) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('vi-VN');
   };
+
+    const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -109,6 +112,7 @@ const ContractTab = ({ contractData }) => {
                 CANCELED: "Đã bị hủy",
                 PENDING: "Đang chờ xử lý",
                 COMPLETED: "Đã hoàn thành",
+                WAITING_CHECKOUT:"Chờ trả phòng"
               }}
               editMode={editMode}
               onChange={handleChange}
@@ -132,7 +136,13 @@ const ContractTab = ({ contractData }) => {
             status === "ACTIVE" && (
               <>
                 <Button variant="contained" color="success">Gia hạn hợp đồng</Button>
-                <Button variant="contained" color="error">Hủy hợp đồng</Button>
+                <Button variant="contained" color="error"
+                onClick={() => {
+                      const contractId = contractData?.id; // Thay thế bằng giá trị thực tế của roomId
+                      const roomId = contractData?.room?.id;
+                      navigate(`/manager/createRoomReturn/${contractId}/${roomId}`); // Đưa renterId và roomId vào URL
+                    }}
+                >Hủy hợp đồng</Button>
               </>
             )
           }

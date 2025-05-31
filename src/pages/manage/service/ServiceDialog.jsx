@@ -2,9 +2,9 @@ import { Checkbox, Dialog, DialogTitle, DialogContent, DialogActions, Button, Te
 import { useState } from 'react';
 
 const statusOptions = [
-  { value: 'active', label: 'Hoạt động', color: 'primary' }, // Xanh dương
-  { value: 'paused', label: 'Tạm dừng', color: 'warning' }, // Cam
-  { value: 'disabled', label: 'Ngừng cung cấp', color: 'error' } // Đỏ
+  { value: 'ACTIVE', label: 'Hoạt động', color: 'primary' }, // Xanh dương
+  { value: 'PAUSED', label: 'Tạm dừng', color: 'warning' }, // Cam
+  { value: 'DISABLE', label: 'Ngừng cung cấp', color: 'error' } // Đỏ
 ];
 function ServiceDialog({ open, onClose, service }) {
   const [selectedService, setSelectedService] = useState(service);

@@ -14,6 +14,8 @@ import EWReducer from './EWReducer';
 import roomServiceReducer from './roomServiceReducer';
 import roomReturnReducer from './roomReturnReducer';
 import billReducer from './billReducer';
+import staffReducer from './staffReducer';
+import paymentReducer from './paymentReducer';
 
 const RootReducer = combineReducers({
   auth: authReducer,
@@ -31,6 +33,8 @@ const RootReducer = combineReducers({
   roomService: roomServiceReducer,
   roomReturn: roomReturnReducer,
   bill: billReducer,
+  staff:staffReducer,
+  payment:paymentReducer,
 });
 
 export default RootReducer;

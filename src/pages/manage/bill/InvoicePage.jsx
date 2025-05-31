@@ -3,8 +3,11 @@ import { Box, Paper, Chip, Typography, Dialog, DialogTitle, DialogContent, Dialo
 import InvoiceHeader from "./InvoiceHeader";
 import InvoiceDetailTable from "./InvoiceDetailTable";
 import InvoiceSummary from "./InvoiceSummary";
+import PaymentQRCode from "../payment/PaymentQRCode";
+import { useNavigate } from "react-router";
 
 const InvoicePage = ({open, onClose, data}) => {
+  const navigate = useNavigate();
   const InfoItem = ({ label, value }) => (
     <Box display="flex" justifyContent="space-between" mt={1}>
       <Typography color="text.secondary" fontSize={14}>{label}</Typography>
@@ -100,6 +103,13 @@ const InvoicePage = ({open, onClose, data}) => {
           <Typography variant="subtitle1" fontWeight="bold" borderBottom="1px solid #e5e7eb" pb={1}>
             Ghi chú
           </Typography>
+          <PaymentQRCode 
+            bankCode="MB"
+            accountNumber="0388580312"
+            accountName="PHAM THI HA"
+            amount= {data?.value - data?.discount -data?.paid}
+            description= {data?.name}
+        />
           <Typography mt={1} fontSize={14} color="text.secondary">
             {data?.note}
           </Typography>
@@ -109,10 +119,7 @@ const InvoicePage = ({open, onClose, data}) => {
       <DialogActions>
         <Box mt={4} display={"flex"} justifyContent={"space-between"} gap={2}>
           {data?.status!=="PAID" &&
-          <Button variant="contained" color="primary" sx={{ px: 4, py: 1.5, fontWeight: "bold" }}>
-            Xác nhận đã thanh toán
-          </Button>
-        }
+            <Button variant="outlined" color="success" onClick={()=>navigate(`/manager/create-payment/${data?.id}`)}>Thanh toán ngay</Button>}
           <Button variant="contained" color="primary" sx={{ px: 4, py: 1.5, fontWeight: "bold" }} onClick={onClose}>
             Đóng
           </Button>

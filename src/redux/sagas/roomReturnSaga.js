@@ -53,7 +53,7 @@ function* addRoomReturnSaga(action) {
     const response = yield call(addRoomReturn, action.payload);
     if (response?.data?.code === '200') {
       yield put(addRoomReturnSuccess(response?.data));
-      toast.success('Thêm phòng thành công!');
+      toast.success('Thêm trả phòng thành công!');
       yield put(
         searchRoomReturnRequest({
         searchDTO: { 
@@ -63,8 +63,8 @@ function* addRoomReturnSaga(action) {
       })
       );
     } else {
-      yield put(addRoomReturnFail('Thêm phòng thất bại!'));
-      toast.error('Thêm phòng thất bại!');
+      yield put(addRoomReturnFail('Thêm trả phòng thất bại!'));
+      toast.error('Thêm trả phòng thất bại!');
     }
   } catch (error) {
     yield put(addRoomReturnFail('Có lỗi xảy ra khi gọi API'));
@@ -77,7 +77,7 @@ function* deleteRoomReturnSaga(action) {
     const response = yield call(deleteRoomReturn, action.payload);
     if (response?.data?.code === '200') {
       yield put(deleteRoomReturnSuccess());
-      toast.success('Xóa phòng thành công!');
+      toast.success('Xóa trả phòng thành công!');
       yield put(
         searchRoomReturnRequest({
         searchDTO: { 
@@ -87,8 +87,8 @@ function* deleteRoomReturnSaga(action) {
       })
       );
     } else {
-      yield put(deleteRoomReturnFail('Xóa phòng thất bại'));
-      toast.error('Xóa phòng thất bại');
+      yield put(deleteRoomReturnFail('Xóa trả phòng thất bại'));
+      toast.error('Xóa trả phòng thất bại');
     }
   } catch (error) {
     yield put(deleteRoomReturnFail('Có lỗi xảy ra khi gọi API'));
@@ -101,7 +101,7 @@ function* updateRoomReturnSaga(action) {
     const response = yield call(updateRoomReturn, action.payload);
     if (response?.data?.code === '200') {
       yield put(updateRoomReturnSuccess(response?.data));
-      toast.success('Cập nhật phòng thành công!');
+      toast.success('Cập nhật trả phòng thành công!');
       yield put(
         searchRoomReturnRequest({
         searchDTO: { 
@@ -111,8 +111,8 @@ function* updateRoomReturnSaga(action) {
       })
       );
     } else {
-      yield put(updateRoomReturnFail('Cập nhật phòng thất bại'));
-      toast.error('Cập nhật phòng thất bại!');
+      yield put(updateRoomReturnFail('Cập nhật trả phòng thất bại'));
+      toast.error('Cập nhật trả phòng thất bại!');
     }
   } catch (error) {
     yield put(updateRoomReturnFail('Có lỗi xảy ra khi gọi API'));

@@ -95,8 +95,8 @@ export default function RenterW() {
                 <TableCell>{item.month}/{item.year}</TableCell>
                 <TableCell>
                   <Chip
-                    label={item.type === 'Electric' ? 'Điện' : 'Nước'}
-                    color={item.type === 'Electric' ? 'warning' : 'info'}
+                    label={item.type === 'ELECTRIC' ? 'Điện' : 'Nước'}
+                    color={item.type === 'ELECTRIC' ? 'warning' : 'info'}
                     size="small"
                   />
                 </TableCell>

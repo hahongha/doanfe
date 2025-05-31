@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchBillRequest } from "redux/actions/billAction";
 import MainCard from 'components/MainCard';
 import InvoicePage from "./InvoicePage";
+import { useNavigate } from "react-router";
 const InvoiceCardList = () => {
   const [keyword, setKeyword] = useState('');
   const [roomNumber, setRoomNumber] = useState(null);
@@ -14,6 +15,7 @@ const InvoiceCardList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const billData = useSelector((state) => state.bill.bills);
   const totalRecords = useSelector((state) => state.bill.totalRecords);
+  const navigate = useNavigate();
   const invoiceStatusMap = {
     PAID: {
       label: "Đã thanh toán",
@@ -113,7 +115,7 @@ const InvoiceCardList = () => {
                   <Box display="flex" justifyContent="space-between" mt={2} gap={2}>
                     <Button variant="contained" color="primary" onClick={()=>handleOpen(invoice)}>Chi tiết</Button>
                     {invoice?.status !== 'PAID' && (
-                      <Button variant="outlined" color="success">Thanh toán ngay</Button>
+                      <Button variant="outlined" color="success" onClick={()=>navigate(`/manager/create-payment/${invoice?.id}`)}>Thanh toán ngay</Button>
                     )}
                   </Box>
             </CardActions>

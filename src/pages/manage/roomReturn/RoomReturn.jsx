@@ -8,7 +8,7 @@ import {
   Grid
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { DeleteIcon, EditIcon } from 'lucide-react';
+import { CheckIcon, DeleteIcon, EditIcon } from 'lucide-react';
 import RoomReturnDetail from './RoomReturnDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRoomReturnRequest } from 'redux/actions/roomReturnAction';
@@ -168,6 +168,9 @@ const RoomReturn = () => {
                   </IconButton>
                   <IconButton color="error" onClick={() => handleDelete(r?.id)}>
                     <DeleteIcon />
+                  </IconButton>
+                  <IconButton color="error">
+                    <CheckIcon />
                   </IconButton>
                 </TableCell>
               </TableRow>

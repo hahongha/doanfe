@@ -1,0 +1,79 @@
+Thống kê tài chính
+Thu nhập: Tổng thu nhập từ việc cho thuê phòng trong một khoảng thời gian nhất định (hàng tháng, hàng quý, hàng năm).
+
+Chi phí: Các chi phí phát sinh trong việc quản lý, bảo trì các phòng trọ, bao gồm chi phí điện, nước, vệ sinh, bảo hiểm, tiền thuê mặt bằng, nhân viên, v.v.
+
+Lợi nhuận: Chênh lệch giữa thu nhập và chi phí, giúp đánh giá hiệu quả hoạt động kinh doanh.
+
+Thu nhập theo loại phòng: Tổng thu nhập từ các loại phòng khác nhau (phòng đơn, phòng đôi, phòng VIP, v.v.).
+
+Chi phí theo loại phòng: Các chi phí bảo trì hoặc dịch vụ khác nhau cho từng loại phòng.
+
+Dịch vụ phát sinh: Doanh thu từ các dịch vụ phát sinh như giặt đồ, dọn phòng, giữ xe, hoặc các dịch vụ bổ sung khác.
+
+2. Thống kê về phòng và người ở
+Tình trạng phòng: Số lượng phòng đã được cho thuê, số lượng phòng trống, và tình trạng các phòng (đang sửa chữa, tạm ngừng cho thuê, v.v.).
+
+Số lượng khách thuê: Tổng số khách thuê phòng, có thể chia theo từng loại phòng hoặc từng khu vực.
+
+Thông tin hợp đồng: Các hợp đồng cho thuê, thời gian thuê, tình trạng thanh toán (đã thanh toán, chưa thanh toán).
+
+Thời gian thuê: Số ngày hoặc tháng mà khách thuê phòng, giúp đánh giá tình hình lấp đầy phòng.
+
+Tình trạng thanh toán: Thống kê các khách hàng đã thanh toán đúng hạn và những khách hàng chưa thanh toán.
+
+3. Thống kê về dịch vụ và tiện ích
+Sử dụng dịch vụ: Thống kê tần suất sử dụng các dịch vụ như giặt đồ, giữ xe, vệ sinh, v.v.
+
+Chi phí dịch vụ: Tổng chi phí liên quan đến các dịch vụ (nếu có).
+
+Đánh giá dịch vụ: Cập nhật phản hồi từ khách hàng về chất lượng dịch vụ (nếu có hệ thống đánh giá).
+
+4. Thống kê về bảo trì và sửa chữa
+Số lần sửa chữa: Thống kê số lần sửa chữa hoặc bảo trì các phòng trong một khoảng thời gian nhất định.
+
+Chi phí bảo trì: Tổng chi phí cho các hoạt động bảo trì và sửa chữa.
+
+Đánh giá tình trạng phòng: Tình trạng của các phòng (mới, cần bảo trì, v.v.) và lịch bảo dưỡng.
+
+5. Thống kê về khách hàng
+Thống kê theo nhóm khách hàng: Phân loại khách hàng theo độ tuổi, giới tính, nghề nghiệp, thời gian lưu trú, v.v.
+
+Tỷ lệ khách quay lại: Số lượng khách hàng quay lại thuê phòng sau một lần sử dụng dịch vụ.
+
+Khách hàng nợ: Danh sách các khách hàng chưa thanh toán hoặc có nợ.
+
+6. Thống kê về các khoản nợ
+Số tiền nợ: Tổng số tiền mà khách hàng còn nợ trong một khoảng thời gian nhất định.
+
+Ngày nợ: Thống kê số ngày trễ thanh toán của các khách hàng.
+
+7. Thống kê hiệu suất hoạt động
+Tỷ lệ lấp đầy phòng: Tỷ lệ phần trăm của các phòng đã cho thuê so với tổng số phòng có sẵn.
+
+Tỷ lệ chuyển đổi khách: Tỷ lệ khách hàng từ phòng trống thành khách thuê.
+
+Thời gian thuê trung bình: Trung bình thời gian một khách hàng thuê phòng.
+
+Doanh thu trung bình mỗi phòng: Tính toán doanh thu bình quân của mỗi phòng cho một khoảng thời gian nhất định.
+
+8. Thống kê theo khu vực hoặc chi nhánh
+Thu nhập theo khu vực: Nếu hệ thống nhà trọ có nhiều chi nhánh hoặc khu vực, thống kê thu nhập và chi phí theo từng khu vực.
+
+Phòng trống theo khu vực: Thống kê số lượng phòng trống theo từng khu vực.
+
+9. Thống kê xu hướng thị trường
+Biến động giá thuê: Theo dõi sự thay đổi của giá thuê theo thời gian và sự biến động trong các mùa cao điểm.
+
+Tỷ lệ cạnh tranh: Thống kê mức độ cạnh tranh với các nhà trọ khác trong khu vực (nếu có thể thu thập dữ liệu từ đối thủ cạnh tranh).
+
+10. Thống kê sử dụng tài nguyên
+Tiêu thụ điện, nước: Tổng tiêu thụ điện, nước theo tháng, và chi phí phát sinh.
+
+Chi phí tiện ích khác: Thống kê chi phí cho các tiện ích khác như Internet, bảo vệ, vệ sinh, v.v.
+
+11. Thống kê phản hồi khách hàng
+Đánh giá khách hàng: Đánh giá từ khách hàng về chất lượng phòng, dịch vụ, giá cả.
+
+Lý do khách rời đi: Thống kê các lý do khách hàng không tiếp tục thuê phòng, giúp cải thiện dịch vụ.
+

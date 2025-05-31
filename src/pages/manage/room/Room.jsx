@@ -18,7 +18,20 @@ function Room() {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [open, setOpen] = useState(false);
   const [render, setRender]= useState(false);
-
+  const initialRoomData = {
+    id: 1,
+    roomNumber: '',
+    status: 'AVAILABLE',
+    cost: 0,
+    isActive: false,
+    funiture: [],
+    description: '',
+    number: 0,
+    electricIndex: 0,
+    waterIndex: 0,
+    room_Type: { id: 0, name: '', size: 0, description: '', imageList: [] },
+    images: []
+  };
   useEffect(() => {
     dispatch(
       searchRoomRequest({
@@ -30,9 +43,14 @@ function Room() {
   }, [dispatch, page, rowsPerPage, keyword, render]);
   const handleOpen = (room) => {
     setSelectedRoom({ ...room });
-    setRoomId(room.id);
     setOpen(true);
   };
+
+  const handleOpenCreate = () =>{
+    setSelectedRoom(initialRoomData);
+    setOpen(true);
+  }
+
   const handleSearchChange = (event) => {
     setKeyword(event.target.value);
   };
@@ -48,7 +66,7 @@ function Room() {
 
   const handleClose = () => {
     setRoomId('');
-    setSelectedRoom(null);
+    setSelectedRoom(initialRoomData);
     setDeleteDialog(false);
     setOpen(false);
   };
@@ -69,7 +87,7 @@ function Room() {
 
         {/* Nút tạo phòng mới */}
         <Grid2 size={{ xs: 12, sm: 12, md: 3 }}>
-          <Button variant="contained" color="primary" onClick={handleOpen}>
+          <Button variant="contained" color="primary" onClick={()=> handleOpenCreate()}>
             Tạo phòng mới
           </Button>
         </Grid2>

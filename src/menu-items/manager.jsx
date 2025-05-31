@@ -1,21 +1,33 @@
 // assets
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import OpacityOutlinedIcon from '@mui/icons-material/OpacityOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
+import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 
 // icons
 const icons = {
-  DescriptionOutlinedIcon,
-  HomeOutlinedIcon,
-  OpacityOutlinedIcon,
-  BoltOutlinedIcon,
-  BuildOutlinedIcon,
-  PaymentOutlinedIcon,
-  ReportProblemOutlinedIcon
+  DescriptionOutlinedIcon,  // Thông tin khách thuê
+  GroupOutlinedIcon,        // Thông tin nhân viên
+  ApartmentOutlinedIcon,    // Thông tin loại phòng
+  HomeOutlinedIcon,         // Thông tin phòng
+  AssignmentOutlinedIcon,   // Thông tin hợp đồng
+  GroupAddOutlinedIcon,     // Thông tin người ở cùng
+  BuildOutlinedIcon,        // Dịch vụ phòng
+  OpacityOutlinedIcon,      // Chỉ số điện nước
+  BoltOutlinedIcon,         // Dịch vụ phòng
+  ReceiptOutlinedIcon,      // Thông tin hóa đơn
+  PaymentOutlinedIcon,      // Lịch sử thanh toán
+  EqualizerOutlinedIcon,    // Thống kê
+  ReportProblemOutlinedIcon // Thông tin khiếu nại
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -38,7 +50,7 @@ const manager = {
       title: 'Thông tin nhân viên',
       type: 'item',
       url: '/manager/staff',
-      icon: icons.PaymentOutlinedIcon,
+      icon: icons.GroupOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -46,7 +58,7 @@ const manager = {
       title: 'Thông tin loại phòng',
       type: 'item',
       url: '/manager/roomType',
-      icon: icons.HomeOutlinedIcon,
+      icon: icons.ApartmentOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -62,7 +74,7 @@ const manager = {
       title: 'Thông tin hợp đồng',
       type: 'item',
       url: '/manager/contract',
-      icon: icons.HomeOutlinedIcon,
+      icon: icons.AssignmentOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -70,7 +82,7 @@ const manager = {
       title: 'Thông tin người ở cùng',
       type: 'item',
       url: '/manager/contractMember',
-      icon: icons.HomeOutlinedIcon,
+      icon: icons.GroupAddOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -78,7 +90,7 @@ const manager = {
       title: 'Thông tin dịch vụ',
       type: 'item',
       url: '/manager/service',
-      icon: icons.HomeOutlinedIcon,
+      icon: icons.BuildOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -90,7 +102,7 @@ const manager = {
       breadcrumbs: false
     },
     {
-      id: 'managerElectric',
+      id: 'managerRoomService',
       title: 'Dịch vụ phòng',
       type: 'item',
       url: '/manager/roomService',
@@ -102,7 +114,7 @@ const manager = {
       title: 'Trả phòng',
       type: 'item',
       url: '/manager/roomReturn',
-      icon: icons.BoltOutlinedIcon,
+      icon: icons.HomeOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -110,15 +122,7 @@ const manager = {
       title: 'Thông tin hóa đơn',
       type: 'item',
       url: '/manager/bill',
-      icon: icons.BoltOutlinedIcon,
-      breadcrumbs: false
-    },
-    {
-      id: 'managerTest',
-      title: 'Trang để test',
-      type: 'item',
-      url: '/manager/test',
-      icon: icons.BuildOutlinedIcon,
+      icon: icons.ReceiptOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -129,20 +133,12 @@ const manager = {
       icon: icons.PaymentOutlinedIcon,
       breadcrumbs: false
     },
-    {
-      id: 'managerTK',
-      title: 'Thống kê',
-      type: 'item',
-      url: '/manager/TK',
-      icon: icons.PaymentOutlinedIcon,
-      breadcrumbs: false
-    },
     // {
-    //   id: 'managerPayment',
-    //   title: 'Lịch sử thanh toán',
+    //   id: 'managerTK',
+    //   title: 'Thống kê',
     //   type: 'item',
-    //   url: '/manager/payment',
-    //   icon: icons.PaymentOutlinedIcon,
+    //   url: '/manager/report',
+    //   icon: icons.EqualizerOutlinedIcon,
     //   breadcrumbs: false
     // },
     // {

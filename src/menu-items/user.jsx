@@ -1,11 +1,12 @@
 // assets
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import OpacityOutlinedIcon from '@mui/icons-material/OpacityOutlined';
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
-import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';  // Hợp đồng
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';                // Phòng
+import OpacityOutlinedIcon from '@mui/icons-material/OpacityOutlined';          // Nước
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';                // Điện
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';  // Hóa đơn
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';    // Thanh toán
+import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';          // Lịch sử thanh toán
+import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined'; // Khiếu nại
 
 // icons
 const icons = {
@@ -13,13 +14,13 @@ const icons = {
   HomeOutlinedIcon,
   OpacityOutlinedIcon,
   BoltOutlinedIcon,
-  BuildOutlinedIcon,
-  PaymentOutlinedIcon,
-  ReportProblemOutlinedIcon
+  ReceiptLongOutlinedIcon,
+  CreditCardOutlinedIcon,
+  HistoryOutlinedIcon,
+  ReportGmailerrorredOutlinedIcon
 };
 
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
-
+// menu
 const user = {
   id: 'userRenter',
   title: 'Khách thuê',
@@ -58,11 +59,19 @@ const user = {
       breadcrumbs: false
     },
     {
-      id: 'userTest',
-      title: 'Trang để test',
+      id: 'userBill',
+      title: 'Thông tin hóa đơn',
       type: 'item',
-      url: '/user/test',
-      icon: icons.BuildOutlinedIcon,
+      url: '/user/bill',
+      icon: icons.ReceiptLongOutlinedIcon,
+      breadcrumbs: false
+    },
+    {
+      id: 'userMustPay',
+      title: 'Thanh toán',
+      type: 'item',
+      url: '/user/must-pay',
+      icon: icons.CreditCardOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -70,7 +79,7 @@ const user = {
       title: 'Lịch sử thanh toán',
       type: 'item',
       url: '/user/payment',
-      icon: icons.PaymentOutlinedIcon,
+      icon: icons.HistoryOutlinedIcon,
       breadcrumbs: false
     },
     {
@@ -78,7 +87,7 @@ const user = {
       title: 'Thông tin khiếu nại',
       type: 'item',
       url: '/user/complaint',
-      icon: icons.ReportProblemOutlinedIcon,
+      icon: icons.ReportGmailerrorredOutlinedIcon,
       breadcrumbs: false
     }
   ]

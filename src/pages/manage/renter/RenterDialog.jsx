@@ -11,15 +11,12 @@ import {
   FormHelperText,
   FormControlLabel,
   Switch,
-  Card,
-  CardMedia,
   Box,
   Typography,
   IconButton,
   Avatar,
   ListItemIcon,
   ListItemText,
-  Grid
 } from '@mui/material';
 import { CloseOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -49,9 +46,9 @@ const initialData = {
     userName: null,
     userId: null,
     role: {
-      roleName: 'USER'
-    }
-  }
+      roleName: 'USER',
+    },
+  },
 };
 
 const fieldLabels = {
@@ -63,30 +60,31 @@ const fieldLabels = {
   address: 'Địa chỉ',
   familyPhone: 'Số điện thoại người thân',
   'user.userName': 'Tên đăng nhập',
-  'user.email': 'Email'
+  'user.email': 'Email',
 };
+
 const statusMap = {
   ACTIVE: { label: 'Đang thuê', icon: <CheckCircleIcon /> },
   INACTIVE: { label: 'Đã trả phòng', icon: <DoNotDisturbIcon /> },
   PENDING: { label: 'Chờ xác nhận', icon: <HourglassTopIcon /> },
   BANNED: { label: 'Bị chặn', icon: <BlockIcon /> },
   EXPIRED: { label: 'Hết hạn', icon: <WarningIcon /> },
-  DELETED: { label: 'Đã xóa', icon: <DeleteIcon /> },
-  SUSPEND: { label: 'Chờ trả phòng', icon: <HourglassTopIcon /> }
+  DELETED: { label: 'Đã xóa', icon: <DeleteIcon /> }
 };
 
 export default function RenterDialog({ open, onClose, renterData, onDelete }) {
   const [renter, setRenter] = useState(initialData);
   const [errors, setErrors] = useState({});
-  const [imageUrl, setImageUrl] = useState(''); // URL của avatar (nếu có)
-  const [imageFile, setImageFile] = useState(null); // Tệp hình ảnh đã chọn
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [imageError, setImageError] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setRenter(renterData || initialData);
-    setImageUrl(renterData?.imageUrl)
+    setImageUrl(renterData?.user?.imageUrl || '');
   }, [renterData]);
-
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,6 +101,19 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
     setRenter((prev) => ({ ...prev, isRegister: e.target.checked }));
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setImageFile(file);
+      setImageError(false);
+    }
+  };
+
   const validate = () => {
     let tempErrors = {};
     Object.keys(fieldLabels).forEach((field) => {
@@ -110,88 +121,43 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
       const value = keys.length > 1 ? renter.user[keys[1]] : renter[field];
       if (!value) tempErrors[field] = 'Trường này không được để trống';
     });
+    if (!renter.gender) tempErrors.gender = 'Vui lòng chọn giới tính';
+    if (!renter.status) tempErrors.status = 'Vui lòng chọn trạng thái';
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
-  // const handleSave = () => {
-  //   const formData = new FormData();
-
-  //   // Thêm object room dưới dạng JSON
-  //   formData.append(
-  //     "renter",
-  //     new Blob([JSON.stringify(renter)], { type: "application/json" })
-  //   );
-
-  //   // Thêm 1 hình ảnh (file đơn)
-  //   if (imageFile) {
-  //     formData.append("file", imageFile); // key 'file' phải khớp với tên @RequestPart bên backend
-  //   } 
-    
-
-  //   if (validate()) {
-  //     if (renter.id) {
-  //       dispatch(updateRenterRequest(formData));
-  //     } else {
-  //       dispatch(addRenterRequest(formData));
-  //     }
-  //   }
-  // };
-
-  const handleSave = () => {
-    const formData = new FormData();
+  const handleSave = async () => {
     if (validate()) {
-
-      formData.append(
-      "renter",
-      new Blob([JSON.stringify(renter)], { type: "application/json" })
-    );
-  
-    if (imageFile) {
-      formData.append("file", imageFile);
-    }
-
-      if (renter.id) {
-        dispatch(updateRenterRequest(formData));
-      } else {
-        dispatch(addRenterRequest(formData));
-      }
-    }
-    onClose();
-  };
-  
-
-  // Hàm xử lý khi người dùng chọn tệp hình ảnh
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    
-    if (file) {
-      // Đọc nội dung tệp hình ảnh để hiển thị trước khi tải lên
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result); // Cập nhật URL của hình ảnh cho preview
-      };
-      reader.readAsDataURL(file); // Đọc tệp hình ảnh như một URL (data URL)
-      setImageFile(file); // Lưu tệp hình ảnh vào state
-    }
-  };
-
-  // Hàm xử lý tải hình ảnh lên (tải lên sau khi chọn)
-  const handleImageUpload = async () => {
-    if (imageFile) {
       try {
-        // Giả sử bạn có hàm `cloudinaryService.uploadImage` để tải lên hình ảnh
-        const uploadedImageUrl = await cloudinaryService.uploadImage(imageFile, 'RENTER');
-        setImageUrl(uploadedImageUrl); // Cập nhật URL hình ảnh sau khi tải lên
-        handleChange({ target: { name: 'imageUrl', value: uploadedImageUrl } });
+        const updatedRenter = {
+          ...renter,
+          user: { ...renter.user, imageUrl },
+        };
+
+        const formData = new FormData();
+        formData.append(
+          'renter',
+          new Blob([JSON.stringify(updatedRenter)], { type: 'application/json' })
+        );
+
+        if (imageFile) {
+          formData.append('file', imageFile);
+        }
+
+        if (renter.id) {
+          dispatch(updateRenterRequest(formData));
+        } else {
+          dispatch(addRenterRequest(formData));
+        }
+        onClose();
       } catch (error) {
-        console.error('Error uploading image:', error);
-        // Xử lý lỗi nếu cần
+        console.error('Error saving renter:', error);
+        // Display error to user (e.g., via Snackbar)
       }
     }
   };
 
-  const [imageError, setImageError] = useState(false);
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>
@@ -206,53 +172,129 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
       </DialogTitle>
       <DialogContent>
         <Grid2 container spacing={2} paddingTop={3}>
-          {/* <Grid2 size={4}>
+          <Grid2 size={12} display="flex" justifyContent="center" alignItems="center">
+            <label htmlFor="upload-avatar" style={{ cursor: 'pointer' }}>
+              <Avatar
+                src={imageUrl}
+                alt={renter.fullName || 'Avatar'}
+                sx={{ width: 100, height: 100 }}
+              />
+            </label>
+            <input
+              accept="image/*"
+              type="file"
+              id="upload-avatar"
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+            />
+            {imageError && (
+              <FormHelperText error>Lỗi khi tải ảnh lên. Vui lòng thử lại.</FormHelperText>
+            )}
+          </Grid2>
+
+          {/* Explicit TextFields for each field */}
+          <Grid2 size={12}>
             <TextField
-              name={'imageUrl'}
-              label={'Avatar'}
+              name="fullName"
+              label="Họ và tên"
               fullWidth
-              value={renter.user.imageUrl ? renter.user.imageUrl || '' : renter.user.imageUrl || ''}
+              value={renter.fullName || ''}
               onChange={handleChange}
-              error={!!errors[renter.user.imageUrl]}
-              helperText={errors[renter.user.imageUrl]}
+              error={!!errors.fullName}
+              helperText={errors.fullName}
             />
           </Grid2>
-          <Grid2 size={4}>
-            <Avatar src={renter.user.imageUrl} alt={renter.fullName} />
-          </Grid2> */}
-          {/* Preview Avatar */}
-        <Grid item xs={12} md={6} display="flex" justifyContent="center" alignItems="center">
-          {/* Click vào Avatar để chọn tệp hình ảnh */}
-          <label htmlFor="upload-avatar" style={{ cursor: 'pointer' }}>
-            <Avatar
-              src={imageUrl} 
-              alt={renter.fullName} 
-              sx={{ width: 100, height: 100 }}
+          <Grid2 size={12}>
+            <TextField
+              name="phone"
+              label="Số điện thoại"
+              fullWidth
+              value={renter.phone || ''}
+              onChange={handleChange}
+              error={!!errors.phone}
+              helperText={errors.phone}
             />
-          </label>
-          {/* Input ẩn khi click vào Avatar */}
-          <input
-            accept="image/*"
-            type="file"
-            id="upload-avatar"
-            onChange={handleImageChange}
-            style={{ display: 'none' }}
-          />
-        </Grid>
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="dob"
+              label="Ngày sinh"
+              fullWidth
+              type='date'
+              value={renter.dob || ''}
+              onChange={handleChange}
+              error={!!errors.dob}
+              helperText={errors.dob}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="identification"
+              label="CMND/CCCD"
+              fullWidth
+              value={renter.identification || ''}
+              onChange={handleChange}
+              error={!!errors.identification}
+              helperText={errors.identification}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="placeOfOrigin"
+              label="Quê quán"
+              fullWidth
+              value={renter.placeOfOrigin || ''}
+              onChange={handleChange}
+              error={!!errors.placeOfOrigin}
+              helperText={errors.placeOfOrigin}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="address"
+              label="Địa chỉ"
+              fullWidth
+              value={renter.address || ''}
+              onChange={handleChange}
+              error={!!errors.address}
+              helperText={errors.address}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="familyPhone"
+              label="Số điện thoại người thân"
+              fullWidth
+              value={renter.familyPhone || ''}
+              onChange={handleChange}
+              error={!!errors.familyPhone}
+              helperText={errors.familyPhone}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="user.userName"
+              label="Tên đăng nhập"
+              fullWidth
+              value={renter.user.userName || ''}
+              onChange={handleChange}
+              error={!!errors['user.userName']}
+              helperText={errors['user.userName']}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <TextField
+              name="user.email"
+              label="Email"
+              fullWidth
+              value={renter.user.email || ''}
+              onChange={handleChange}
+              error={!!errors['user.email']}
+              helperText={errors['user.email']}
+            />
+          </Grid2>
 
-          {Object.keys(fieldLabels).map((field, index) => (
-            <Grid2 size={12} key={index}>
-              <TextField
-                name={field}
-                label={fieldLabels[field]}
-                fullWidth
-                value={field.includes('user.') ? renter.user[field.split('.')[1]] || '' : renter[field] || ''}
-                onChange={handleChange}
-                error={!!errors[field]}
-                helperText={errors[field]}
-              />
-            </Grid2>
-          ))}
           <Grid2 size={4}>
             <TextField
               select
@@ -262,12 +304,12 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
               value={renter.gender || 'MALE'}
               onChange={handleChange}
               error={!!errors.gender}
+              helperText={errors.gender}
             >
               <MenuItem value="">Chọn giới tính</MenuItem>
               <MenuItem value="MALE">Nam</MenuItem>
               <MenuItem value="FEMALE">Nữ</MenuItem>
             </TextField>
-            {errors.gender && <FormHelperText error>{errors.gender}</FormHelperText>}
           </Grid2>
           <Grid2 size={4}>
             <TextField
@@ -278,18 +320,19 @@ export default function RenterDialog({ open, onClose, renterData, onDelete }) {
               value={renter.status || 'INACTIVE'}
               onChange={handleChange}
               error={!!errors.status}
-              sx={{display:"flex"}}
+              helperText={errors.status}
+              sx={{ display: 'flex' }}
             >
-              <MenuItem value="">
-                Chọn trạng thái
-              </MenuItem>
+              <MenuItem value="">Chọn trạng thái</MenuItem>
               {Object.entries(statusMap).map(([value, { label, icon }]) => (
-                <MenuItem key={value} value={value} sx={{display:"flex"}} icon={icon}>
-                  <ListItemText primary={label} />
+                <MenuItem key={value} value={value}>
+                  <Box display="flex" alignItems="center">
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={label} />
+                  </Box>
                 </MenuItem>
               ))}
             </TextField>
-            {errors.status && <FormHelperText error>{errors.status}</FormHelperText>}
           </Grid2>
           <Grid2 size={4}>
             <FormControlLabel

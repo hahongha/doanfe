@@ -343,13 +343,6 @@ export default function AddContract() {
           <Button variant="contained" color="primary" onClick={handleSubmit}>
             Tạo hợp đồng
           </Button>
-
-          <Button variant="contained" color="primary" onClick={()=>{
-            console.log(formData);
-            
-          }}>
-            Xem Json
-          </Button>
         </Box>
 
         <Divider sx={{ my: 4 }} />

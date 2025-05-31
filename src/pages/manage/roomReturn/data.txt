@@ -1,0 +1,23 @@
+INSERT INTO rental.room_return
+(id, create_at, update_at, note, reason, return_date, status, contract_id, room_id)
+VALUES
+('RR001', '2025-01-05', '2025-01-06', 'Yêu cầu trả phòng sớm', 'Chuyển nơi làm việc', '2025-01-10', 'PENDING', 'C001', 1),
+('RR002', '2025-01-10', '2025-01-11', 'Đã thanh toán đầy đủ', 'Không còn nhu cầu thuê', '2025-01-15', 'APPROVED', 'C002', 2),
+('RR003', '2025-02-01', '2025-02-02', 'Lý do không hợp lệ', 'Hợp đồng chưa hết hạn', '2025-02-07', 'REJECTED', 'C003', 3),
+('RR004', '2025-02-15', '2025-02-16', 'Đang xử lý yêu cầu', 'Chờ xác minh thanh toán', '2025-02-20', 'IN_PROGRESS', 'C004', 4),
+('RR005', '2025-03-01', '2025-03-02', 'Trả phòng thành công', 'Đủ điều kiện', '2025-03-05', 'COMPLETED', 'C005', 5),
+('RR006', '2025-03-10', '2025-03-11', 'Chưa có xác nhận', 'Người thuê chưa trả chìa khóa', '2025-03-15', 'PENDING', 'C006', 6),
+('RR007', '2025-03-15', '2025-03-16', 'Đã duyệt yêu cầu', 'Hợp đồng kết thúc', '2025-03-20', 'APPROVED', 'C007', 7),
+('RR008', '2025-03-20', '2025-03-21', 'Không hợp lệ', 'Nợ tiền phòng', '2025-03-25', 'REJECTED', 'C008', 8),
+('RR009', '2025-04-01', '2025-04-02', 'Chờ xử lý', 'Chờ kiểm kê thiết bị', '2025-04-06', 'IN_PROGRESS', 'C009', 9),
+('RR010', '2025-04-05', '2025-04-06', 'Trả phòng hoàn tất', 'Không có phát sinh', '2025-04-10', 'COMPLETED', 'C010', 10),
+('RR011', '2025-04-08', '2025-04-09', 'Đang đợi xác nhận', 'Không rõ lý do', '2025-04-12', 'PENDING', 'C011', 11),
+('RR012', '2025-04-12', '2025-04-13', 'Xác nhận hợp lệ', 'Yêu cầu chính đáng', '2025-04-17', 'APPROVED', 'C012', 12),
+('RR013', '2025-04-15', '2025-04-16', 'Lý do không hợp lệ', 'Không đúng quy trình', '2025-04-20', 'REJECTED', 'C013', 13),
+('RR014', '2025-04-18', '2025-04-19', 'Đang chờ hoàn tất', 'Chờ bàn giao tài sản', '2025-04-23', 'IN_PROGRESS', 'C014', 14),
+('RR015', '2025-04-20', '2025-04-21', 'Đã xử lý xong', 'Không có khiếu nại', '2025-04-25', 'COMPLETED', 'C015', 15),
+('RR016', '2025-05-01', '2025-05-02', 'Mới gửi yêu cầu', 'Chưa đầy đủ giấy tờ', '2025-05-05', 'PENDING', 'C016', 16),
+('RR017', '2025-05-03', '2025-05-04', 'Đã được duyệt', 'Thỏa mãn điều kiện', '2025-05-08', 'APPROVED', 'C017', 17),
+('RR018', '2025-05-06', '2025-05-07', 'Không được chấp thuận', 'Thiếu thông tin hợp đồng', '2025-05-10', 'REJECTED', 'C018', 18),
+('RR019', '2025-05-10', '2025-05-11', 'Đang trong quá trình kiểm tra', 'Chờ kết quả kiểm kê', '2025-05-15', 'IN_PROGRESS', 'C019', 19),
+('RR020', '2025-05-15', '2025-05-16', 'Trả phòng hoàn tất', 'Không có vướng mắc', '2025-05-20', 'COMPLETED', 'C020', 20);

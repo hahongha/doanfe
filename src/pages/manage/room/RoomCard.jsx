@@ -21,7 +21,7 @@ export default function RoomCard({room, onClick}) {
       color: "error", 
       icon: <HomeWorkIcon fontSize="small" /> 
     },
-    PENDING: { 
+    WAITING: { 
       label: "Chờ xác nhận", 
       color: "warning", 
       icon: <HourglassTopIcon fontSize="small" /> 
@@ -45,6 +45,11 @@ export default function RoomCard({room, onClick}) {
       label: "Đã xóa", 
       color: "default", 
       icon: <DeleteIcon fontSize="small" /> 
+    },
+    WAITING_CHECKOUT: {
+      label: "Chờ trả phòng",
+      color: "info", 
+      icon: <CleaningServicesIcon fontSize="small" />
     }
   };
 

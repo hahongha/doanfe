@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchBillRequest } from "redux/actions/billAction";
 import MainCard from 'components/MainCard';
 import InvoicePage from "./InvoicePage";
+import { useNavigate } from "react-router";
 const Bill = () => {
   const [keyword, setKeyword] = useState('');
   const [roomNumber, setRoomNumber] = useState(null);
@@ -14,6 +15,7 @@ const Bill = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const billData = useSelector((state) => state.bill.bills);
   const totalRecords = useSelector((state) => state.bill.totalRecords);
+  const navigate = useNavigate();
   const invoiceStatusMap = {
     PAID: {
       label: "Đã thanh toán",
@@ -98,7 +100,7 @@ const Bill = () => {
     <MainCard title = "Danh sách hóa đơn">
       <Grid container spacing={2}>
         {billData.map((invoice, idx) => (
-          <Grid item xs={12} sm={6} md={4} key={idx}>
+          <Grid item xs={12} sm={6} md={6} key={idx}>
             <Card sx={{ borderLeft: "6px solid #4f46e5" }}>
                 <CardContent>
                   <Typography variant="subtitle2" color="text.secondary">
@@ -108,14 +110,18 @@ const Bill = () => {
                   <Typography color="text.secondary">Khách thuê: {invoice?.renter?.fullName}</Typography>
                   <Typography color="text.secondary">Hạn thanh toán: {invoice?.dueDate}</Typography>
                   {getStatusChip(invoice?.status)}
+                  {/* <PaymentQRCode/> */}
                 </CardContent>
                 <CardActions>
                   <Box display="flex" justifyContent="space-between" mt={2} gap={2}>
                     <Button variant="contained" color="primary" onClick={()=>handleOpen(invoice)}>Chi tiết</Button>
-                    <Button variant="contained" color="primary" onClick={()=>handleOpen(invoice)}>Chỉnh sửa</Button>
                     {invoice?.status !== 'PAID' && (
-                      <Button variant="outlined" color="success">Thanh toán ngay</Button>
-                    )}
+                      <>
+                      <Button variant="outlined" color="success" onClick={()=>navigate(`/manager/create-payment/${invoice?.id}`)}>Thanh toán ngay</Button>
+                      <Button variant="contained" color="primary" onClick={()=>handleOpen(invoice)}>Chỉnh sửa</Button>
+                      </>
+                      
+                   )}
                   </Box>
             </CardActions>
               </Card>

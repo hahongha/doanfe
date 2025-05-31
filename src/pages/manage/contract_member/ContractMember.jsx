@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchContractMemberRequest } from 'redux/actions/contractMemberAction';
 import SearchBar from 'components/SearchBar';
 import ContractMemberList from './contractMemberList';
+import ContractMemberCard from './ContractMemberCard';
 function ContractMember() {
   const [open, setOpen] = useState(false);
   const [selectMember, setSelectMember] = useState(null);
@@ -62,7 +63,11 @@ function ContractMember() {
         </Grid2>
       </Grid2>
       <Grid2 container spacing={2} mt={2}>
-        <ContractMemberList contractMembersData={contractMembersData} handleOpen={handleOpen} />
+        <Grid2 container spacing={2} mt={2}>
+      {contractMembersData.map((card) => (
+        <ContractMemberCard card={card} key={card.id} onOpen={(e) => handleOpen(card)} />
+      ))}
+    </Grid2>
       </Grid2>
       <TablePagination
         page={page}

@@ -8,7 +8,11 @@ export const getAllRenter = async () => {
   return response;
 };
 export const addRenter = async (data) => {
-  const response = await http.post(`/renter`, data);
+  const response = await http.post(`/renter`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
   return response;
 };
 

@@ -14,6 +14,8 @@ import EWSaga from './EWSaga';
 import roomServiceSaga from './roomServiceSaga';
 import roomReturnSaga from './roomReturnSaga';
 import billSaga from './billSaga';
+import StaffSaga from './staffSaga';
+import paymentSaga from './paymentSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -32,5 +34,7 @@ export default function* rootSaga() {
     roomServiceSaga(),
     roomReturnSaga(),
     billSaga(),
+    StaffSaga(),
+    paymentSaga(),
   ]);
 }
