@@ -10,8 +10,6 @@ function BillPanelDialog({invoiceData, open, handleClose}) {
   const formatCurrency = (amount) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
   const formatDate = (dateString) => new Date(dateString).toLocaleDateString('vi-VN');
 
-  const billSubtotal = invoiceData.billDetails.reduce((sum, item) => sum + item.value, 0);
-  const otherFees = invoiceData.totalAmount - billSubtotal;
      const [tabIndex, setTabIndex] = useState(0);
       const [showDetails, setShowDetails] = useState(true);
     return ( 
@@ -26,45 +24,53 @@ function BillPanelDialog({invoiceData, open, handleClose}) {
 
       <TabPanel value={tabIndex} index={0}>
         <Paper sx={{ mt: 2, p: 2 }}>
-          <Box display="flex" justifyContent="space-between" mb={2}>
-            <Typography variant="h4">Chi tiết hóa đơn</Typography>
-            <Button onClick={() => setShowDetails(!showDetails)}>
-              {showDetails ? 'Ẩn' : 'Hiển thị'}
-            </Button>
-          </Box>
+          <Box display="flex" flexDirection="column" gap={1} mb={2}>
+              <Typography variant="h4">Chi tiết hóa đơn</Typography>
+              <Typography variant="h4">Tên hóa đơn: {invoiceData?.name}</Typography>
+              <Typography variant="h7">Ngày thanh toán: {invoiceData?.paymentDate}</Typography>
+              <Typography variant="h7">Ghi chú: {invoiceData?.note}</Typography>
+              <Typography variant="h7">Trạng thái: {invoiceData?.status}</Typography>
+              <Typography variant="h7">Hạn thanh toán: {invoiceData?.dueDate}</Typography>
+              
+              <Button onClick={() => setShowDetails(!showDetails)}>
+                {showDetails ? 'Ẩn' : 'Hiển thị'}
+              </Button>
+            </Box>
+
 
           {showDetails && (
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Mục</TableCell>
-                    <TableCell align="right">Số tiền</TableCell>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Mục</TableCell>
+                  <TableCell>Số lượng</TableCell>
+                  <TableCell>Đơn giá</TableCell>
+                  <TableCell align="right">Số tiền</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {invoiceData.billDetails.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.quantity}</TableCell>
+                    <TableCell>{formatCurrency(item.unitPrice)}</TableCell>
+                    <TableCell align="right">
+                      {formatCurrency(item.quantity * item.unitPrice)}
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {invoiceData.billDetails.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell>{item.name}</TableCell>
-                      <TableCell align="right">{formatCurrency(item.value)}</TableCell>
-                    </TableRow>
-                  ))}
-                  <TableRow>
-                    <TableCell><strong>Tổng phụ</strong></TableCell>
-                    <TableCell align="right">{formatCurrency(billSubtotal)}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Phí khác</TableCell>
-                    <TableCell align="right">{formatCurrency(otherFees)}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell><strong>Tổng cộng</strong></TableCell>
-                    <TableCell align="right"><strong>{formatCurrency(invoiceData.totalAmount)}</strong></TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
           )}
+
+          <Box display="flex" flexDirection="column" gap={1} mb={2}>
+            <Typography variant="h5">Tổng phải đóng: {formatCurrency(invoiceData?.value)}</Typography>
+              <Typography variant="h5">Giảm giá: {formatCurrency(invoiceData?.discount)} </Typography>
+              <Typography variant="h5">Đã thanh toán: {formatCurrency(invoiceData?.paid)}</Typography>
+              <Typography variant="h5">Còn lại: {formatCurrency(invoiceData?.totalAmount)}</Typography>
+          </Box>
         </Paper>
       </TabPanel>
 

@@ -4,9 +4,10 @@ import { Box, Typography, Card, CardHeader, CardContent, Grid, Avatar, Chip, But
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import RoomDetails from './RoomDetails';
-import http from '../../redux/api/http';
+import http from 'redux/api/http';
 import MainCard from 'components/MainCard';
 import RenterContractMember from './RenterContractMember';
+import RenterService from './RenterService';
 export default function RenterRoom() {
   const [roomDatas, setRoomDatas] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -75,6 +76,9 @@ export default function RenterRoom() {
           <Grid2 size = {6}>
             <MainCard title="Thông tin những người đang thuê cùng">
             <RenterContractMember contract={room?.contractId}/>
+            </MainCard>
+            <MainCard>
+              <RenterService id={room?.id}/>
             </MainCard>
           </Grid2>
       </Grid2>

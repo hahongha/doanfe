@@ -70,7 +70,7 @@ const user = {
       id: 'userMustPay',
       title: 'Thanh toán',
       type: 'item',
-      url: '/user/must-pay',
+      url: '/user/payment',
       icon: icons.CreditCardOutlinedIcon,
       breadcrumbs: false
     },
@@ -78,7 +78,7 @@ const user = {
       id: 'userPayment',
       title: 'Lịch sử thanh toán',
       type: 'item',
-      url: '/user/payment',
+      url: '/user/paymentHistory',
       icon: icons.HistoryOutlinedIcon,
       breadcrumbs: false
     },
@@ -86,7 +86,7 @@ const user = {
       id: 'userComplaint',
       title: 'Thông tin khiếu nại',
       type: 'item',
-      url: '/user/complaint',
+      url: '/user/blog',
       icon: icons.ReportGmailerrorredOutlinedIcon,
       breadcrumbs: false
     }

@@ -26,26 +26,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserInfoRequest } from "redux/actions/authActions";
 const Blog = () => {
   const navigate = useNavigate();
-  const [render, setRender] = useState(false);
+  const [open, setOpen] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAll, setShowAll] = useState(false);
   const [notification, setNotification] = useState({ open: false, message: "", severity: "success" });
-  const [open, setOpen] = useState(false);
   const isAuthenticated = useSelector((state) => !!state.auth.accessToken);
-  const userReducer = useSelector((state) => state.auth.userInfo);
-  const dispatch = useDispatch();
+    const userReducer = useSelector((state) => state.auth.userInfo);
+    const dispatch = useDispatch();
 
     useEffect(() => {
       dispatch(getUserInfoRequest());
     }, []);
-
   const fetchBlogs = async () => {
   try {
     setLoading(true);
 
-    const response = await http.get(`/blog/statuses`);
+    const response = await http.get(`/userRental/getStatusByUserId`);
 
     if (response.data.code === "200") {
       console.log(response?.data?.data);
@@ -67,7 +65,8 @@ const Blog = () => {
     setLoading(false);
   }
 };
-const fetchDelete = async (id) => {
+
+  const fetchDelete = async (id) => {
   try {
     setLoading(true);
 
@@ -90,10 +89,11 @@ const fetchDelete = async (id) => {
     setLoading(false);
   }
 };
+
   // Simulate API fetch
   useEffect(() => {
     fetchBlogs();
-  }, [render]);
+  }, []);
 
   const handleTogglePublic = () => {
     setShowAll(!showAll);
@@ -101,8 +101,8 @@ const fetchDelete = async (id) => {
 
   const handleDelete = (id) => {
     fetchDelete(id);
+    setBlogs(blogs.filter((blog) => blog.id !== id));
     setNotification({ open: true, message: `Đã xóa bài viết ${id}`, severity: "success" });
-    fetchBlogs();
   };
 
   if (loading) {
@@ -133,14 +133,10 @@ const fetchDelete = async (id) => {
             Danh Sách Bài Viết
           </Typography>
           <Box display="flex" alignItems="center" gap={2}>
-            <FormControlLabel
-              control={<Switch checked={showAll} onChange={handleTogglePublic} />}
-              label={showAll ? "Hiển thị tất cả" : "Chỉ hiển thị công khai"}
-            />
             <Button
               variant="contained"
               color="primary"
-              onClick={()=> setOpen(true)}
+              onClick={()=>{setOpen(true)}}
               aria-label="Tạo bài viết mới"
             >
               Tạo Bài Viết
@@ -152,12 +148,9 @@ const fetchDelete = async (id) => {
           {blogs.map((blog) => (
             <Grid item xs={12} sm={6} md={4} key={blog.id}>
               <Card sx={{ height: "100%", display: "flex", flexDirection: "column" 
-                            ,backgroundColor: blog?.cancel ? "#f0f0f0" : "white", // màu xám khi hủy
-                                  opacity: blog?.cancel ? 0.6 : 1,
-                                pointerEvents: blog?.cancel ? "none" : "auto"
-                                }}
-                                  
-                                  >
+              ,backgroundColor: blog?.cancel ? "#f0f0f0" : "white", pointerEvents: blogs?.cancel ? "none" : "auto",
+                    opacity: blog?.cancel ? 0.6 : 1}}
+                >
                 <CardContent sx={{ flexGrow: 1 }}>
 
                   <Box display="flex" alignItems="center" mb={2}>
@@ -187,17 +180,20 @@ const fetchDelete = async (id) => {
                     />
                   </Box>
                 </CardContent>
+                {blog?.cancel ===false &&
                 <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
+                    
                   <Button
                     size="small"
                     color="primary"
                     startIcon={<Visibility />}
-                    onClick={() => navigate(`/manager/blog/${blog.id}`)}
+                    onClick={() => navigate(`/user/blog/${blog.id}`)}
                     aria-label={`Xem chi tiết ${blog.title}`}
                   >
                     Xem
                   </Button>
                   <Box>
+                    
                     <Button
                       size="small"
                       color="error"
@@ -208,7 +204,7 @@ const fetchDelete = async (id) => {
                       Xóa
                     </Button>
                   </Box>
-                </CardActions>
+                </CardActions>}
               </Card>
             </Grid>
           ))}

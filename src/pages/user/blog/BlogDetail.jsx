@@ -18,9 +18,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import MainCard from "components/MainCard"; // Assumed custom component
 import http from 'redux/api/http';
-import BlogForm from "./BlogForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfoRequest } from "redux/actions/authActions";
+
 
 const BlogDetail = () => {
     const initData = {
@@ -62,16 +62,13 @@ const BlogDetail = () => {
   const [error, setError] = useState(null);
   const [newComment, setNewComment] = useState("");
   const [notification, setNotification] = useState({ open: false, message: "", severity: "success" });
-  const [open, setOpen] = useState(false);
-  const [init,setInit] = useState(false);
- const isAuthenticated = useSelector((state) => !!state.auth.accessToken);
-  const userReducer = useSelector((state) => state.auth.userInfo);
-  const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state) => !!state.auth.accessToken);
+    const userReducer = useSelector((state) => state.auth.userInfo);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-      dispatch(getUserInfoRequest());
-    }, []);
-
+        dispatch(getUserInfoRequest());
+    }, [dispatch]);
 const fetchBlogs = async (id) => {
   try {
     setLoading(true);
@@ -93,22 +90,41 @@ const fetchBlogs = async (id) => {
   }
 };
 
+const addComment = async (data) => {
+  try {
+    setLoading(true);
+    console.log(data);
+    
+    
+    const response = await http.post(`/blog/addComment`, data);
+    
+    if (response.data.code === "200") {
+        
+    setNotification({ open: true, message: "Đã thêm bình luận", severity: "success" });
+    toast.success("Đã thêm bình luận");
+    } else {
+      setNotification({ open: true, message: "Thêm bình luận thất bại", severity: "error" });
+      toast.error("Thêm bình luận thất bại");
+    }
+  } catch (error) {
+    setNotification({ open: true, message: "Thêm bình luận thất bại", severity: "error" });
+    toast.error("Thêm bình luận thất bại");
+  } finally {
+    setLoading(false);
+  }
+};
+
 useEffect(() => {
   if (statusId) {
     fetchBlogs(statusId);
   }
-}, [statusId, init]);
+}, [statusId]);
 
 
   const handleDelete = () => {
     setNotification({ open: true, message: `Đã xóa bài viết ${blog?.id}`, severity: "success" });
     toast.success(`Đã xóa bài viết ${blog?.id}`);
-    navigate("/manager/blog");
-  };
-
-  const handleSubmit = () => {
-    setInit(!init);
-    setOpen(false);
+    navigate(-1);
   };
 
   const handleAddComment = (e) => {
@@ -129,16 +145,14 @@ useEffect(() => {
         statusId: blog?.id,
         author: {
           userName: userReducer?.userName, // Replace with actual user
-          userAvatar: userReducer?.userAvatar,
+          userAvatar: userReducer?.userAvatar
         },
       };
       setBlog({
         ...blog,
         comments: [comment, ...blog?.comments],
       });
-      setNewComment("");
-      setNotification({ open: true, message: "Đã thêm bình luận", severity: "success" });
-      toast.success("Đã thêm bình luận");
+      addComment(comment);
     }
   };
 
@@ -171,7 +185,7 @@ useEffect(() => {
             variant="text"
             color="primary"
             startIcon={<ArrowBack />}
-            onClick={() => navigate("/blogs")}
+            onClick={() => navigate(-1)}
             aria-label="Quay lại danh sách bài viết"
           >
             Quay lại
@@ -221,26 +235,6 @@ useEffect(() => {
           <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 3 }}>
             {blog?.content}
           </Typography>
-          <Box display="flex" gap={2}>
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<Edit />}
-              onClick={()=> {setOpen(true)}}
-              aria-label={`Chỉnh sửa bài viết ${blog?.title}`}
-            >
-              Sửa
-            </Button>
-            <Button
-              variant="outlined"
-              color="error"
-              startIcon={<Delete />}
-              onClick={handleDelete}
-              aria-label={`Xóa bài viết ${blog?.title}`}
-            >
-              Xóa
-            </Button>
-          </Box>
         </Paper>
 
         {/* Comments Section */}
@@ -317,7 +311,6 @@ useEffect(() => {
           {notification.message}
         </Alert>
       </Snackbar>
-      <BlogForm open={open} onClose={handleSubmit} initialData={blog}/>
     </MainCard>
   );
 };

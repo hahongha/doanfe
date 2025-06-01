@@ -2,6 +2,8 @@ import { AccessTime, CalendarToday, CheckCircle, MonetizationOn } from "@mui/ico
 import { Box, Button, Chip, Divider, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import BillPanelDialog from "./BillPanelDialog";
+import PaymentMethodDialog from "./payment/PaymentMethodDialog";
+import VNPayResult from "./payment/VNPayResult";
 
 function BillDTO({invoiceData}) {
       const formatCurrency = (amount) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
@@ -12,10 +14,21 @@ function BillDTO({invoiceData}) {
       const [open, setOpen] = useState(false);
     
       const handleOpen = () => setOpen(true);
+
+      const [openPayment, setOpenPayment] = useState(false);
+    
+      const handleOpenPayment = () => {
+        setOpenPayment(true);
+      }
+
+      const handleClosePayment = () => {
+        setOpenPayment(false);
+      }
+
       const handleClose = () => setOpen(false);
     return ( 
-        
     <Box sx={{ p: 3 }}>
+        <VNPayResult/>
         <Paper sx={{ p: 3, mb: 3 }}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
             <Typography variant="h6" fontWeight="bold">{invoiceData.name}</Typography>
@@ -51,12 +64,13 @@ function BillDTO({invoiceData}) {
             <Button variant="outlined" sx={{margin:2}}>In hóa đơn</Button>
 
             {invoiceData.status !== 'PAID'&& (
-                <Button variant="contained" sx={{ margin: 2 }}>
+                <Button variant="contained" sx={{ margin: 2 }} onClick={()=> handleOpenPayment()}>
                     Thanh toán
                 </Button>
             )}
             </Box>
         </Paper>
+        <PaymentMethodDialog open={openPayment} onClose={handleClosePayment} data={invoiceData}/>
         <BillPanelDialog invoiceData= {invoiceData} open= {open} handleClose = {handleClose}/>
     </Box>
 

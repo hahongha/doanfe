@@ -146,7 +146,7 @@ const manager = {
       id: 'managerComplaint',
       title: 'Thông tin khiếu nại',
       type: 'item',
-      url: '/manager/complaint',
+      url: '/manager/blog',
       icon: icons.ReportProblemOutlinedIcon,
       breadcrumbs: false
     }
