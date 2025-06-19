@@ -46,9 +46,7 @@ const VNPayResult = () => {
     }
   }, []);
 
-  // Gọi API sau khi paramData đã sẵn sàng
-  useEffect(() => {
-    const fetchPaymentInfo = async () => {
+  const fetchPaymentInfo = async () => {
       try {
         setLoading(true);
         const response = await http.get('/paymentVNPAY/payment-infor', {
@@ -83,10 +81,12 @@ const VNPayResult = () => {
       }
     };
 
+  // Gọi API sau khi paramData đã sẵn sàng
+  useEffect(() => {
     if (paramData) {
       fetchPaymentInfo();
     }
-  }, [paramData, navigate]);
+  }, [paramData]);
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>

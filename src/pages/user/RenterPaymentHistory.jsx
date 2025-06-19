@@ -100,7 +100,7 @@ const RenterPaymentHistory = () => {
           <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Mã thanh toán</TableCell>
+            {/* <TableCell>Mã thanh toán</TableCell> */}
             <TableCell>Mã hóa đơn</TableCell>
             <TableCell>Tên hóa đơn</TableCell>
             <TableCell>Ngày thanh toán</TableCell>
@@ -112,7 +112,7 @@ const RenterPaymentHistory = () => {
         <TableBody>
           {paymentData.map((payment) => (
             <TableRow key={payment.id}>
-              <TableCell>{payment.id}</TableCell>
+              {/* <TableCell>{payment.id}</TableCell> */}
               <TableCell>{payment.bill?.id}</TableCell>
               <TableCell>{payment.bill?.name}</TableCell>
               <TableCell>{payment.paymentDate}</TableCell>

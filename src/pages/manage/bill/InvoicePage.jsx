@@ -96,6 +96,16 @@ const InvoicePage = ({open, onClose, data}) => {
               <InfoItem label="SĐT:" value={data?.renter?.phone} />
             </Box>
           </Grid>
+          <Grid item xs={12} md={6}>
+            <Box mb={2}>
+              <Typography variant="subtitle1" fontWeight="bold" borderBottom="1px solid #e5e7eb" pb={1}>
+                Thông tin chủ trọ
+              </Typography>
+              <InfoItem label="Họ tên:" value={"Phạm Thị Hà"} />
+              <InfoItem label="Giới tính:" value={"Nữ"} />
+              <InfoItem label="SĐT:" value={"0388580312"} />
+            </Box>
+          </Grid>
       </Grid>
         <InvoiceDetailTable items={data?.billDetails} />
         <InvoiceSummary subtotal={data?.value||0} paid= {data?.paid||0} discount = {data?.discount||0} />

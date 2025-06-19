@@ -31,7 +31,7 @@ import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import auth from 'redux/api/auth.api';
-import { getUserInfoRequest } from '../../../../../redux/actions/authActions';
+import { getUserInfoRequest } from 'redux/actions/authActions';
 // import AvatarEmployee from 'pages/leave/avatar-employee';
 
 // tab panel wrapper

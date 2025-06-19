@@ -12,7 +12,7 @@ const InvoiceCardList = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const billData = useSelector((state) => state.bill.bills);
   const totalRecords = useSelector((state) => state.bill.totalRecords);
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const InvoiceCardList = () => {
       searchBillRequest({
         searchDTO: { 
           page: page,
-          size: rowsPerPage,
+          size: 50,
           value: `%${keyword}%`
         }
       })

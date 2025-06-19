@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Card, CardContent, Typography, Chip, CardActions, Button } from "@mui/material";
+import { Box, Grid, Card, CardContent, Typography, Chip, CardActions, Button, TablePagination } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { searchBillRequest } from "redux/actions/billAction";
 import MainCard from 'components/MainCard';
@@ -12,7 +12,7 @@ const Bill = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const billData = useSelector((state) => state.bill.bills);
   const totalRecords = useSelector((state) => state.bill.totalRecords);
   const navigate = useNavigate();
@@ -129,6 +129,23 @@ const Bill = () => {
         ))}
         <InvoicePage open={open} onClose = {handleClose} data ={selectedIndex}/>
       </Grid>
+      <TablePagination
+          page={page}
+          component="div"
+          count={totalRecords}
+          rowsPerPage={rowsPerPage}
+          onPageChange={handleChangePage}
+          rowsPerPageOptions={[1, 2, 3, 6, 9, 12, 18, 30]}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Số hàng mỗi trang"
+          labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${`trong`} ${count !== -1 ? count : `more than ${to}`}`}
+          backIconButtonProps={{
+            'aria-label': 'Previous Page'
+          }}
+          nextIconButtonProps={{
+            'aria-label': 'Next Page'
+          }}
+        />
       
     </MainCard>
   );

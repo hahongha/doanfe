@@ -34,7 +34,7 @@ export default function ContractDetail({contract}) {
           <Grid2 container spacing={2}
            style={{ 
             // border: getBorderColor(contract.status), 
-            padding:2, margin:2}}
+            padding:1, margin:1}}
            >
           <Grid2 size={3}>
               <Typography variant="h3" gutterBottom>Thông tin hợp đồng</Typography>
@@ -45,7 +45,7 @@ export default function ContractDetail({contract}) {
               <Typography variant="body1"><strong>Đặt cọc:</strong> {contract?.deposit} VNĐ</Typography>
               <Typography variant="body1"><strong>Trạng thái:</strong> <Chip label={contract.status} color={contract.status === 'ACTIVE' ? 'success' : contract.status === 'INACTIVE' ? 'default' : 'warning'} /></Typography>
             </Grid2>
-            <Grid2 size={5}>
+            <Grid2 size={3}>
               <Typography variant="h3" gutterBottom>Thông tin người thuê</Typography>
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
                 <Avatar src={contract?.renter?.imageUrl} alt="avatar" sx={{ width: 56, height: 56 }} />
@@ -62,7 +62,23 @@ export default function ContractDetail({contract}) {
                 </div>
               </div>
             </Grid2>
-            <Grid2 size={4}>
+
+             <Grid2 size={3}>
+              <Typography variant="h3" gutterBottom>Thông tin chủ trọ</Typography>
+              <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
+                <div>
+                  <Typography variant="body1"><strong>Họ và tên:</strong>{"Phạm Thị Hà"}</Typography>
+                  <Typography variant="body1"><strong>Giới tính:</strong>{getGender("FEMALE")}</Typography>
+                  <Typography variant="body1"><strong>Ngày sinh:</strong>{"03/12/2003"}</Typography>
+                  <Typography variant="body1"><strong>Quê quán:</strong>{"Hà Nội"}</Typography>
+                  <Typography variant="body1"><strong>Địa chỉ thường trú:</strong>{"123 Đường Lê Lợi, Quận 1, TP.HCM"}</Typography>
+                  <Typography variant="body1"><strong>Số căn cước công dân:</strong>{"001303019917"}</Typography>
+                  <Typography variant="body1"><strong>Số điện thoại:</strong>{"0388580312"}</Typography>
+                </div>
+              </div>
+            </Grid2>
+
+            <Grid2 size={3}>
               <Typography variant="h3" gutterBottom>Thông tin phòng</Typography>
               <Typography variant="body1"><strong>Phòng:</strong> {contract?.room?.roomNumber}</Typography>
               <Typography variant="body1"><strong>Loại:</strong> {contract?.room?.room_Type?.name} ({contract?.room?.room_Type?.size}m²)</Typography>

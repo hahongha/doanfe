@@ -5,6 +5,7 @@ import ContractTab from './ContractTab';
 import RoomTab from './RoomTab';
 import ContractMemberTab from './ContractMemberTab';
 import RenterTab from './RenterTab';
+import OwnerTab from './OwnerTab';
 
 export default function RentalContract({contract}) {
   const [activeTab, setActiveTab] = useState('contract');
@@ -71,6 +72,9 @@ export default function RentalContract({contract}) {
   const renderTenantTab = () => (
     <RenterTab renterData={contract?.renter}/>
   );
+  const renderOwnerTab = () => (
+    <OwnerTab/>
+  );
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -84,11 +88,14 @@ export default function RentalContract({contract}) {
         <Tab label="Hợp đồng" value="contract" />
         <Tab label="Phòng" value="room" />
         <Tab label="Người thuê" value="tenant" />
+        <Tab label="Chủ trọ" value="owner" />
         <Tab label="Người thuê cùng" value="contractmember" />
+        
       </Tabs>
       {activeTab === 'contract' && renderContractTab()}
       {activeTab === 'room' && renderRoomTab()}
       {activeTab === 'tenant' && renderTenantTab()}
+      {activeTab === 'owner' && renderOwnerTab()}
       {activeTab === 'contractmember' && renderContractMemberTab()}
     </Box>
   );

@@ -33,8 +33,8 @@ const Blog = () => {
   const [showAll, setShowAll] = useState(false);
   const [notification, setNotification] = useState({ open: false, message: "", severity: "success" });
   const isAuthenticated = useSelector((state) => !!state.auth.accessToken);
-    const userReducer = useSelector((state) => state.auth.userInfo);
-    const dispatch = useDispatch();
+  const userReducer = useSelector((state) => state.auth.userInfo);
+  const dispatch = useDispatch();
 
     useEffect(() => {
       dispatch(getUserInfoRequest());

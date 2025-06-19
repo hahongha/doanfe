@@ -34,6 +34,24 @@ import { searchPaymentRequest } from "redux/actions/paymentAction";
 import RefreshIcon from "@mui/icons-material/Refresh";
 const formatCurrency = (value) =>
   value.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+function getPaymentLabel(value) {
+  switch (value) {
+    case 'CASH':
+      return 'Tiền mặt';
+    case 'BANK_TRANSFER':
+      return 'Chuyển khoản ngân hàng';
+    case 'MOMO':
+      return 'MOMO';
+    case 'VNPAY':
+      return 'VNPAY';
+    case '':
+    case null:
+    case undefined:
+      return 'Tất cả';
+    default:
+      return value; // hoặc 'Không xác định'
+  }
+}
 
 const PaymentHistory = () => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -164,7 +182,7 @@ const PaymentHistory = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Mã thanh toán</TableCell>
+            {/* <TableCell>Mã thanh toán</TableCell> */}
             <TableCell>Mã hóa đơn</TableCell>
             <TableCell>Tên hóa đơn</TableCell>
             <TableCell>Ngày thanh toán</TableCell>
@@ -177,11 +195,11 @@ const PaymentHistory = () => {
         <TableBody>
           {paymentData.map((payment) => (
             <TableRow key={payment.id}>
-              <TableCell>{payment.id}</TableCell>
+              {/* <TableCell>{payment.id}</TableCell> */}
               <TableCell>{payment.bill?.id}</TableCell>
               <TableCell>{payment.bill?.name}</TableCell>
               <TableCell>{payment.paymentDate}</TableCell>
-              <TableCell>{payment.paymentMethod}</TableCell>
+              <TableCell>{getPaymentLabel(payment.paymentMethod)}</TableCell>
               <TableCell>{formatCurrency(payment.value)}</TableCell>
               <TableCell>{payment.note}</TableCell>
               <TableCell align="center">

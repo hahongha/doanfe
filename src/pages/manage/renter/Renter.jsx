@@ -37,7 +37,7 @@ function Renter() {
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedRenter, setSelectedRenter] = useState(null);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
   const renterData = useSelector((state) => state.renter.renters);
   const totalRecords = useSelector((state) => state.renter.totalRecords);
   const dispatch = useDispatch();

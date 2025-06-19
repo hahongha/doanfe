@@ -135,7 +135,6 @@ const navigate = useNavigate();
     }else{
       updateStatus(formData);
     }
-    navigate(`/manager/blog/${formData?.id}`);
     onClose();
   };
 

@@ -178,7 +178,7 @@ const ElectricWaterList = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Mã phiếu</strong></TableCell>
+              {/* <TableCell><strong>Mã phiếu</strong></TableCell> */}
               <TableCell><strong>Phòng</strong></TableCell>
               <TableCell><strong>Loại</strong></TableCell>
               <TableCell><strong>Tháng/Năm</strong></TableCell>
@@ -194,7 +194,7 @@ const ElectricWaterList = () => {
           <TableBody>
             {datas.map((item) => (
               <TableRow key={item.id}>
-                <TableCell>{item.id}</TableCell>
+                {/* <TableCell>{item.id}</TableCell> */}
                 <TableCell>{item.room.roomNumber}</TableCell>
                 <TableCell>{item.type === 'ELECTRIC' ? 'Điện' : 'Nước'}</TableCell>
                 <TableCell>{`${item.month.toString().padStart(2, '0')}/${item.year}`}</TableCell>

@@ -141,7 +141,7 @@ const ContractTab = ({ contractData }) => {
           {
             status === "ACTIVE" && (
               <>
-                <Button variant="contained" color="success">Gia hạn hợp đồng</Button>
+                {/* <Button variant="contained" color="success">Gia hạn hợp đồng</Button> */}
                 <Button variant="contained" color="error"
                 onClick={() => {
                       const contractId = contractData?.id; // Thay thế bằng giá trị thực tế của roomId

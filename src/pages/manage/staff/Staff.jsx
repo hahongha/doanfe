@@ -23,7 +23,7 @@ import { searchStaffRequest } from 'redux/actions/staffAction';
 
 const Staff = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
   const staffs = useSelector((state) => state.staff.staffs);
   const totalRecords = useSelector((state) => state.staff.totalRecords);
   const dispatch = useDispatch();
@@ -110,7 +110,7 @@ const Staff = () => {
   return (
     <div>
       <h2>Quản lý nhân viên</h2>
-      <StaffSearchForm onSearch={handleSearch} />
+      {/* <StaffSearchForm onSearch={handleSearch} /> */}
       <Button variant="contained" color="primary" sx={{marginBottom:2}} onClick={()=>handleOpen(selectedStaff)}>Thêm nhân viên mới</Button>
       <TableContainer component={Paper}>
         <Table>
